@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Todo List</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<style>
+	.done-true {
+		text-decoration: line-through;
+		color: rgb(226, 28, 28);
+	}
+
+	.itemList {
+		padding: 5px;
+		color: rgb(223, 99, 95);
+		font-size: 23px;
+		background-color: rgb(134, 237, 255);
+		font-family: fantasy;
+		margin: 2px;
+	}
+</style>
+
+<body>
+	<div ng-app="myapp" ng-controller="mycont">
+		<div class="container">
+			<form name='myForm'>
+				<span class="page-header" style="text-align: center;">
+					<h1>
+						<b>TO-DO LIST</b>
+					</h1>
+				</span>
+				<span ng-repeat="n in list">
+					<h3>WELCOME:-{{n.Username}}</h3>
+				</span>
+				<input type="text" placeholder="Enter your name" ng-model="UserTodo" ng-show="UserEdit">
+				<button ng-show="UserEdit" ng-click="UserTodoname();" class="btn btn-success">User Name</button>
+				<div ng-hide="UserEdit">
+					<input type="text" placeholder="Enter your name" ng-model="todoname" ng-hide="addEdit">
+					<button ng-hide="addEdit" ng-click="nametodo();" class="btn btn-info">ADD TODO NAME</button>
+					<button ng-hide="addEdit" ng-click="init();" class="btn btn-success">Fetch Previous Data </button>
+				</div>
+				<div ng-hide="addEdit">
+					<ul class="list-group" style="list-style: none">
+						<li class="list-group-items">
+							<span ng-repeat="x in newArray">
+								<div class=" itemList" ng-click="loadList($index)"  class="well">
+									{{x.name}}
+							</span>
+							<span style="float:right;cursor:pointer" class="glyphicon glyphicon-trash" ng-click="removeList($index)"></span>
+							</div>
+						</li>
+					</ul>
+					<br>
+				</div>
+				<div ng-show="addEdit">
+
+					<h3>Your Item name:- {{newArray[selectedList].name}}</h3>
+
+					<div class="panel panel-default" style="width:auto;height:auto">
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">TODO LIST</label>
+								<div class="col-sm-3">
+									<input class="form-control" ng-model="todo" name="todo" type="text" placeholder="Enter Your TODO LIST">
+									<span style="color:red" ng-show="myForm.todo.$touched && myForm.todo.$invalid">
+										Enter your TODO
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<button type='submit ' ng-click="add();" class="btn btn-info">ADD</button>
+
+					<button class="btn btn-success" ng-click="addEdit=false">Go to home</button>
+                    <button  ng-click="addData();" class="btn btn-info">ADD TO DATABASE</button>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Item TO-DO</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="x in newArray[selectedList].items">
+								<td>
+									<input type="checkbox" id="{{$index}}" ng-model="x.addD.done">
+									<label for="{{$index}}" class="done-{{x.addD.done}}">{{x.listItem}}</label>
+									<button type='submit ' ng-click="remove($index);" style="float:right" class="btn btn-danger">Remove</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+
+
+		</div>
+	</div>
+	<script>
+		var app = angular.module("myapp", []);
+		var cntr = app.controller("mycont", function ($scope, $http) {
+
+
+			$scope.list = new Array();
+			$scope.items = new Array();
+			//$scope.finalList=[];
+			$scope.newArray = [];
+			$scope.addEdit = false;
+			$scope.sumEdit = false;
+			$scope.UserEdit = true;
+			$scope.Arr=new Array();
+
+			$scope.loadList = function (x) {
+				$scope.addEdit = true;
+				$scope.sumEdit = true;
+				$scope.selectedList = x;
+			};
+			$scope.init = function () {
+				$http.get("http://localhost:3001/Initialization").then(function (response) {
+					$scope.finalList = response.data;
+					for (var i = 0; i < $scope.finalList.length; i++) {
+						$scope.Arr.push($scope.finalList[i].names);
+					}
+					for(var j=0;j<$scope.Arr.length;j++)
+						{
+						$scope.newArray=($scope.Arr[j]);
+						}
+					//console.log($scope.finalList);
+
+				});
+			};
+			$scope.UserTodoname = function () {
+				if ($scope.UserTodo != null) {
+					var Uget = { Username: $scope.UserTodo };
+					$scope.list.push(Uget);
+				}
+				else {
+					alert("please enter Username");
+				}
+				$scope.UserEdit = false;
+			};
+
+			$scope.nametodo = function () {
+
+				if ($scope.todoname != null) {
+					var get = { name: $scope.todoname, items: new Array() };
+					$scope.newArray.push(get);
+					$scope.todoname = null;
+				}
+				else {
+					alert("Enter something");
+				}
+			};
+
+			$scope.add = function () {
+
+				if ($scope.todo != null) {
+					var newItem = { listItem: $scope.todo, done: false };
+					$scope.newArray[$scope.selectedList].items.push(newItem);
+					$scope.todo = null;
+					//localStorage.todo = JSON.stringify($scope.newArray);
+
+				}
+
+				else {
+					alert("Enter something");
+				}
+			};
+
+			$scope.remove = function (idx) {
+				$scope.newArray[$scope.selectedList].items.splice(idx, 1);
+			//	localStorage.todo = JSON.stringify($scope.newArray);
+
+			};
+			$scope.removeList = function (index) {
+				$scope.newArray.splice(index, 1)
+			//	localStorage.todo = JSON.stringify($scope.newArray);
+			};
+$scope.addData=function(){
+	var temp = { names: $scope.newArray };
+	$http.post("http://localhost:3001/Insert", temp).then(function (response) {
+						console.log("success");
+					});
+					
+};
+		});
+
+	</script>
+</body>
+
+</html>
