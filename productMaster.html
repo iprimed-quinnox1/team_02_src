@@ -13,8 +13,9 @@
 
 <body ng-app="myApp" ng-controller="myCntr" ng-init="specPage=true;itemAdder=false">
     <div class="container" ng-show="specPage">
+    	<h4>Enter the PID to search item ::  <span><input type="text" ng-model="searchPid"></span></h4>
         <ul>
-            <li ng-repeat="item in itemsList">{{item.pid}}
+            <li ng-repeat="item in itemsList | filter:{pid:searchPid}">{{item.pid}}
                 <span>
                   
                     <button ng-click="goToAddSpec(item);">AddTechSpec</button>
