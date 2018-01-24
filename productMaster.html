@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCntr" ng-init="specPage=true;itemAdder=false">
+    <div class="container" ng-show="specPage">
+        <ul>
+            <li ng-repeat="item in itemsList">{{item.pid}}
+                <span>
+                    <button ng-click="goToAddSpec(item);">AddTechSpec</button>
+                </span>
+            </li>
+        </ul>
+        <button ng-click="itemAdder=true">New*</button>
+        <div ng-show="itemAdder">
+            <div>
+                <h4 ng-click="itemAdder=false">X</h4>
+            </div>
+            <p>ItemId :
+                <span>
+                    <input type="text" ng-model="newItemPid">
+                </span>
+            </p>
+            <button ng-click="addNewItemToDb()">AddNew</button>
+        </div>
+    </div>
+    <div ng-hide="specPage" class="container">
+        <h3>PID : : {{selectedItem.pid}}</h3>
+        <p>Click on add to add Properties</p>
+        <table ng-if="selectedItem.techSpec.length">
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in selectedItem.techSpec">
+                    <td>{{x.att }}</td>
+                    <td>{{x.value}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Add New</h3>
+        <p>Property :
+            <span>
+                <input type="text" ng-model="newProperty">
+            </span>
+        </p>
+        <p>Value :
+            <span>
+                <input type="text" ng-model="newValue">
+            </span>
+        </p>
+        <button ng-click="addNewSpec()">ADD</button>
+        <button class="btn-md btn-success" ng-click="doneAdding()">DoneAdding</button>
+
+    </div>
+    <script>
+        function product(pid, spec) {
+            this.pid = pid;
+            this.techSpec = spec;
+        }
+        var app = angular.module("myApp", []);
+        app.controller("myCntr", function ($scope, $http) {
+            $http.get("http://localhost:3000/init").then(function (response) {
+                $scope.itemsList = response.data;
+            });
+            $scope.goToAddSpec = function (x) {
+                $scope.selectedItem = x;
+                $scope.specPage = false;
+            }
+            $scope.addNewSpec = function () {
+                var temp = {
+                    att: $scope.newProperty,
+                    value: $scope.newValue
+                };
+                $scope.newProperty = null;
+                $scope.newValue = null;
+                $scope.selectedItem.techSpec.push(temp);
+            }
+            $scope.addNewItemToDb = function () {
+                if ($scope.newItemPid == null) {
+                    alert("Enter Something");
+                    return;
+                }
+                var newItem = new product($scope.newItemPid, []);
+                $http.post("http://localhost:3000/createNew", newItem).then(function (response) {
+                    if (response.data == true) {
+                        alert("Inserted");
+                        $scope.newItemPid = null;
+                        $scope.itemAdder = false;
+                        $http.get("http://localhost:3000/init").then(function (response) {
+                            $scope.itemsList = response.data;
+                        });
+                    }
+                });
+            }
+            $scope.doneAdding = function () {
+                $http.post("http://localhost:3000/updateTechSpec",$scope.selectedItem).then(function(response){
+                    if(response.data == true){
+                        $scope.specPage = true;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
