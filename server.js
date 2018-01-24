@@ -101,9 +101,10 @@ app.post("/DeleteProductList", function (request, response) {
         console.log(obj);
         var del = {"techSpec.att":obj.att};
         //var set = require.body.item.pid;
-        res.update({},{$pull:{techSpec:{att:obj.att}}},function (err, response) {
+        res.update({'pid':obj.pid},{$pull:{techSpec:{att:obj.att}}},function (err, res) {
             if (err) throw err;
             console.log(obj + "deleted product list");
+            response.send(true);
         });
         database.close();
     });
