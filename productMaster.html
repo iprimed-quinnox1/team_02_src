@@ -134,7 +134,7 @@
                   var newItemList = { pid:$scope.selectedItem.pid,att: $scope.selectedItem.techSpec[idx].att };
                   console.log(newItemList);
                   $http.post("http://localhost:3000/DeleteProductList", newItemList).then(function (response) {
-                      console.log("Deleted ProductList");
+                      //console.log("Deleted ProductList");
                      if(response.data==true)
                      {
                          alert("item deleted");
