@@ -44,12 +44,14 @@
                 <tr>
                     <th>Property</th>
                     <th>Value</th>
+                     <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="x in selectedItem.techSpec">
                     <td>{{x.att }}</td>
                     <td>{{x.value}}</td>
+                    <td style="float:right;cursor:pointer; color: red" class="glyphicon glyphicon-remove-circle" ng-click="removeProductList($index)"></td>
                 </tr>
             </tbody>
         </table>
@@ -124,6 +126,18 @@
                 $http.get("http://localhost:3000/init").then(function (response) {
                 $scope.itemsList = response.data;
             });
+            };
+            $scope.removeProductList = function (idx) {
+                console.log($scope.selectedItem);
+                //console.log($scope.itemsList.techSpec[idx].att)
+                var newItemList = { att: $scope.itemsList[0].techSpec[idx].att };
+                $http.post("http://localhost:3000/DeleteProductList", newItemList).then(function (response) {
+                    console.log("Deleted ProductList");
+
+                });
+                $http.get("http://localhost:3000/init").then(function (response) {
+                    $scope.itemsList = response.data;
+                });
             };
         });
     </script>

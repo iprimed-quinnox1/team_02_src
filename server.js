@@ -92,6 +92,22 @@ app.post("/DeleteProduct", function (request, response) {
         database.close();
     });
 });
+app.post("/DeleteProductList", function (request, response) {
+    MongoClient.connect(url, function (err, database) {
+        if (err) throw err;
+        var db = database.db("Project");
+        var res = db.collection("ItemList");
+        var obj = request.body;
+        console.log(obj);
+        var del = {"techSpec.att":obj.att};
+        //var set = require.body.item.pid;
+        res.update({},{$pull:{techSpec:{att:obj.att}}},function (err, response) {
+            if (err) throw err;
+            console.log(obj + "deleted product list");
+        });
+        database.close();
+    });
+});
 
 //------------------------- To run server -----------------------------
 
