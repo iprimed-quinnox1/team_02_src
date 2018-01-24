@@ -76,6 +76,22 @@ app.post("/updateTechSpec",function(request,response){
         database.close();
     });
 });
+app.post("/DeleteProduct", function (request, response) {
+    MongoClient.connect(url, function (err, database) {
+        if (err) throw err;
+        var db = database.db("Project");
+        var res = db.collection("ItemList");
+        var obj = request.body;
+        console.log(obj);
+        var del = {"pid":obj.pid};
+        //var set = require.body.item.pid;
+        res.deleteOne(del,function (err, response) {
+            if (err) throw err;
+            console.log(obj + "deleted product");
+        });
+        database.close();
+    });
+});
 
 //------------------------- To run server -----------------------------
 
