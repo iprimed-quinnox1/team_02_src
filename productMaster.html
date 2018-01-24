@@ -19,7 +19,7 @@
                 <span>
                   
                     <button ng-click="goToAddSpec(item);">AddTechSpec</button>
-                <span style="float:right;cursor:pointer; color: red;" class="glyphicon glyphicon-remove-circle" ng-click="removeProduct($index)"></span>
+                <span style="float:right;cursor:pointer; color: red;" class="glyphicon glyphicon-remove-circle" ng-click="removeProduct(item)"></span>
                 </span>
             </li>
         </ul>
@@ -116,7 +116,7 @@
                 });
             }
             $scope.removeProduct=function(idx){
-                var newItem= {pid:$scope.itemsList[idx].pid};
+                var newItem= idx;
                 $http.post("http://localhost:3000/DeleteProduct", newItem).then(function (response) {
                     console.log("Deleted Product");
                     
