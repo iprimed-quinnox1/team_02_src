@@ -1,0 +1,96 @@
+<html>
+
+
+<head>
+	<title>product page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+	<style>
+		body {
+			background-color: black;
+
+			background-image: url("Mountaineer-reaching-the-summit-Dan-Briski.jpg");
+			background-repeat: none;
+			background-size: cover;
+
+		}
+
+		.text-field {
+			background-color: rgba(255, 255, 255, 0.68);
+			;
+			border: none;
+			padding: 5px 20px;
+			color: rgba(51, 51, 51, 0.94);
+			;
+		}
+
+		img {
+			text-align: center;
+		}
+
+		img.center {
+			display: block;
+			margin: 0 auto;
+		}
+
+
+	</style>
+
+</head>
+
+
+
+<body ng-app="myApp" ng-controller="myCntr">
+
+
+	<nav class="navbar navbar-default">
+		<div class="container-fluid" style="padding-left: 45%;">
+			<ul class="nav navbar-nav">
+				<li>
+
+					<img src="greatoutdoor.png" width="150" height="60">
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<center>PID
+		<input type="text" class="text-field" ng-model="searchPid" placeholder="Enter PID">
+	</center>
+	<center>
+		<button type="submit" ng-click="search();" width="150" height="60">submit</button>
+	</center>
+
+	<script>
+		var app = angular.module("myApp", []);
+		app.controller("myCntr", function ($scope,$http) {
+			$scope.search = function(){
+				if($scope.searchPid == null){
+					alert("plz fill the field");
+					return;
+				}
+				myob={pidToSearch:$scope.searchPid};
+				$http.post("http://192.168.10.32:3000/search",myob).then(function(response){
+					if(response.data == true){
+						//localStorage.lastSearchedPid = myob.pidToSearch;
+						window.location="Productpage.html#!/search?_id="+myob.pidToSearch;
+						$scope.searchPid =null;
+					}
+					else{
+						$scope.searchPid =null;
+						alert("not Found");
+					}
+				});	
+			}
+
+		});
+	</script>
+
+</body>
+
+</html>

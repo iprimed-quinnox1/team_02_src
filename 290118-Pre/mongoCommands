@@ -1,0 +1,10 @@
+db.ItemList.insert([
+{pid:"101",name:"tshirt",price:"2000" ,img:[],techSpec:[{att:"color",value:"Red"},{att:"size",value:"m"}]},
+{pid:"102",name:"Jeans",price:"2000" ,img:[],techSpec:[{att:"color",value:"Red"},{att:"size",value:"m"}]},
+{pid:"103",name:"bat",price:"2000" ,img:[],techSpec:[{att:"color",value:"Red"},{att:"size",value:"m"}]},
+{pid:"104",name:"ball",price:"2000" ,img:[],techSpec:[{att:"color",value:"Red"},{att:"size",value:"m"}]}
+])
+
+5a670a47790a492cacf5214a
+5a670a47790a492cacf5214a
+5a670a47790a492cacf5214a
