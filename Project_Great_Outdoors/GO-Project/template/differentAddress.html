@@ -1,0 +1,42 @@
+<div class="container">
+    <h1>MY CART</h1>
+    <table class="table striped cartClass">
+        <thead>
+            <tr>
+                <th class="items">Items</th>
+                <th class="quantity">Quantity</th>
+                <th class="sendTo">Send To</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="items in cartOb">
+                <!--We need to use ng-repeat here for the item present in the cart-->
+                <td>
+                    <div class="itemViewer">
+                        <img ng-src="{{items.imageUrl}}" width="150px" height="150px">
+                        <div>
+                            <h4>{{items.name}}</h4>
+                            <button class="btn btn-danger" ng-click="removeItemFromCart(items)">Delete</button>
+                        </div>
+                            <p class="itemPrice"><b>{{items.price}}</b></p>
+                           <hr>
+                    </div>
+                </td>
+                <td>
+                        <p>{{items.quantity}}</p>
+                </td>
+                <td>
+                    <select ng-model="items.address" ng-options="item for item in address"></select>
+                    <!--select class="addList">
+                        <option ng-repeat="x in address">{{x}}</option>
+                    </select-->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container placeOrderButtonContainer" ng-if="cartOb.length">
+    <button class="btn btn-lg btn-success" ng-click="placeOrder();">Place the order</button>
+</div>
+
+

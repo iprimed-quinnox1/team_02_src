@@ -1,0 +1,24 @@
+<div class="container">
+    <div>
+        <h1>Shopping Cart</h1>
+        <br>
+        <hr>
+        <div ng-repeat="items in cartOb" class="itemViewer">
+            <img ng-src="{{items.imageUrl}}" width="150px" height="150px">
+            <div>
+                <h4>{{items.name}}</h4>
+                <p>{{items.address}}</p>
+                <button class="btn btn-danger" ng-click="removeItemFromCart(items)">Delete</button>
+            </div>
+            <p class="itemPrice"><b>{{items.price}}</b></p>
+            <select ng-model="items.quantity" ng-options="item for item in quantityRange"></select>
+            <p class="totalPrice">{{items.price*items.quantity}}</p>
+            <hr>
+        </div>
+        <!--h3>Total Amount</h3>
+        <h3>{{totalSum}}</h3-->
+    </div>
+</div>
+<div class="container">
+    <a style="float:right;" href="#!add">Address</a>
+</div>

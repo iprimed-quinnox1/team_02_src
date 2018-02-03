@@ -1,0 +1,95 @@
+.add {
+    list-style: none;
+    font-family: cursive;
+    
+}
+.PadWellDefualt{
+    padding: 0px 0px 0px 0px;
+    width: 250px;
+    height: auto;
+    margin:2px;
+    word-wrap: break-word;
+    border:1px;   
+    text-decoration-color: black; 
+}
+.PadWellDefaultButton{
+    
+    float: right;
+}
+
+ul.li {
+
+    text-align: left;
+}
+
+.pad {
+    padding: 0px 0px 0px 0px;
+    margin: 2%;
+    overflow:hidden; 
+    width: 260px;
+    height: auto;
+    
+
+}
+.glyphi{
+    color: grey;
+   font-size: 45px;      
+}
+.padNew{
+    padding:13px 0px 0px 0px;
+    width:150px;
+    height: auto;
+}
+.NewAddress{
+    text-align: center;
+    color: rgb(87, 87, 173);
+    border: 1pc;
+}
+.defaultAdd{
+    position: fixed;
+    bottom: auto;
+    background-color: rgb(172, 169, 169);
+    text-decoration-color: black;   
+}
+.AddressDet{
+    text-align: center;
+    color: rgb(87, 87, 173);
+}
+
+.itemViewer img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.itemViewer div {
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    vertical-align: middle;
+    margin-left: 30px;
+}
+
+.itemViewer div button {
+    float: left;
+    position: relative;
+    top: 50%;
+}
+
+.itemViewer .itemPrice {
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.itemViewer .totalPrice {
+    float: right;
+    display: inline-block;
+}
+
+.itemViewer select {
+    margin-left: 30px;
+    width: 150px;
+}
+
+.placeOrderButtonContainer button{
+    float:right;
+}
