@@ -20,8 +20,19 @@ var address = require("./routes/address/getCustomerAddressById.js");
 app.use("/address",address);
 
 var addressForm = require("./routes/address/AddressFormRoute.js");
-
 app.use("/addressF",addressForm);
+
+var productMaster = require("./routes/productMaster/productMasterRouters");
+app.use("/productMaster",productMaster);
+
+var productDescription = require("./routes/productDescriptionRoute.js");
+app.use("/productDescription",productDescription);
+
+
+var productDataManagement = require("./routes/order/ProductDataManagement.js");
+app.use("/productData",productDataManagement);
+
+
 
 app.listen(3000,function(){
     console.log("server started running.....");

@@ -9,11 +9,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="items in cartOb">
+            <tr ng-repeat="items in Cartob">
                 <!--We need to use ng-repeat here for the item present in the cart-->
                 <td>
                     <div class="itemViewer">
-                        <img ng-src="{{items.imageUrl}}" width="150px" height="150px">
+                        <img ng-src="{{'../routes/productMaster/uploads/'+items.img}}" width="150px" height="150px">
                         <div>
                             <h4>{{items.name}}</h4>
                             <button class="btn btn-danger" ng-click="removeItemFromCart(items)">Delete</button>
@@ -35,7 +35,7 @@
         </tbody>
     </table>
 </div>
-<div class="container placeOrderButtonContainer" ng-if="cartOb.length">
+<div class="container placeOrderButtonContainer" ng-if="Cartob.length">
     <button class="btn btn-lg btn-success" ng-click="placeOrder();">Place the order</button>
 </div>
 

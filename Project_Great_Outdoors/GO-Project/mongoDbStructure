@@ -50,3 +50,5 @@ db.Addresses.insert([
 	{customerId:'C102',city:"Samastipur",country:"India",state:"Bihar",ZIP:560090,street:"3rd Cross",type:'T'},
 	{customerId:'C102',city:"Darbhanga",country:"India",state:"Bihar",ZIP:560090,street:"3rd Cross",type:'T'}
 ])
+
+db.AddressList.insert({customerId:"C101",Name:"Pratap",PhoneNumber: 7795564789, Address: "kormanagala",City: "Bangalore",State: "Karnataka",ZIPcode: 545445,Country: "India",Type: "T",type:"D"})

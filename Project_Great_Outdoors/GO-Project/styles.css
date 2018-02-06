@@ -21,6 +21,11 @@ ul.li {
 
     text-align: left;
 }
+.RemoveButton{
+    float: right;
+    color: red;
+    
+}
 
 .pad {
     padding: 0px 0px 0px 0px;
@@ -93,3 +98,61 @@ ul.li {
 .placeOrderButtonContainer button{
     float:right;
 }
+
+
+/*Style for the  home page*/
+.itemContainer{
+    background-color:white;
+    width:200px;
+    margin-left:20px;
+    float:left;
+    display:inline-block;
+    text-align: center;
+    border: 1px solid black;
+    height:300px;
+    margin-top:20px;
+    transition: transform .3s;
+}
+.itemContainer:hover{
+    background-color:white;
+    transform: scale(1.1); 
+}
+
+/*---------end----------------*/
+
+/*
+    Style for product description page
+*/
+
+.item-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background-size: cover;
+    border-right: 1px solid #f6f6f6;
+}
+
+
+/*--------------end------------*/
+/*Style for productMaster page*/
+.editorTable{
+    width:30%;
+    height:10vh;
+}
+.editorTable tr td{
+    text-align:center;
+}
+.availItem li{
+    margin-top:1vh;
+}
+/*body{
+    background-color:rgb(224, 235, 132);
+}*/
+.itemList tr td{
+    text-align:center;
+}
+.itemList tr th{
+    text-align: center;
+}
+/*----------------end----------*/

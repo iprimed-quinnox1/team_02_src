@@ -6,7 +6,7 @@ exports.findAddress = function (ob, callback) {
     MongoClient.connect(url, function (err, database) {
         if (err) throw err;
         var db = database.db("Project");
-        var res = db.collection("Addresses");
+        var res = db.collection("AddressList");
         console.log(ob);
         res.find(ob).toArray(function (err, result) {
             if (err) {
@@ -23,8 +23,8 @@ exports.defaultAddress = function(ob,callback){
     MongoClient.connect(url,function(err,database){
         if(err) throw err;
         var db = database.db("Project");
-        var res = db.collection("Addresses");
-        res.find({customerId:ob.customerId,type:"D"}).toArray(function(err,result){
+        var res = db.collection("AddressList");
+        res.find({type:"D"}).toArray(function(err,result){
             if(err) throw err;
             callback(result);
         })

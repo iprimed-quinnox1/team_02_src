@@ -1,13 +1,13 @@
 <div class="container" ng-hide="FormData">
     <div class="well PadWellDefualt">
         <ul class="add">
-            <li>Name:-{{AddressObject.Name}}</li>
-            <li>Number:-{{AddressObject.Number}}</li>
-            <li>Address:-{{AddressObject.Address1}}</li>
-            <li>City:-{{AddressObject.City}}</li>
-            <li>State:-{{AddressObject.State}}</li>
-            <li>ZIPCode:-{{AddressObject.Postcode}}</li>
-            <li>Country:-{{AddressObject.Country}}</li>
+            <li>Name:-{{AddressObjectDefault.Name}}</li>
+            <li>Number:-{{AddressObjectDefault.PhoneNumber}}</li>
+            <li>Address:-{{AddressObjectDefault.Address}}</li>
+            <li>City:-{{AddressObjectDefault.City}}</li>
+            <li>State:-{{AddressObjectDefault.State}}</li>
+            <li>ZIPCode:-{{AddressObjectDefault.ZIPcode}}</li>
+            <li>Country:-{{AddressObjectDefault.Country}}</li>
 
         </ul>
         <!-- Trigger the modal with a button -->
@@ -28,6 +28,7 @@
                     <div class="row">
                         <div class="col-sm-4 pad" ng-repeat="Address in AddressArray">
                             <div class="well">
+                                    <button type="button" class="glyphicon glyphicon-remove RemoveButton" ng-click="DeleteAddress($index)"></button>
                                 <ul class="add">
                                     <li>{{Address.Name}}</li>
                                     <li>{{Address.Email}}</li>
@@ -68,7 +69,7 @@
         </div>
 
     </div>
-    {{currentDeliveryAddress}}
+    
 </div>
 <!-- Address form when you click add new -->
 <div ng-show="FormData">

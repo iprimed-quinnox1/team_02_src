@@ -29,4 +29,17 @@ app.service("addressForm", function ($http) {
         });
 
     }
+    this.addressFormListDelete = function (del) {
+        var data = {name:del};
+        return $http.post("http://localhost:3000/addressF/AddressDelete", data).then(function (response) {
+
+            if (response.data == true) {
+                alert("deleted");
+            }
+            else {
+                alert("Error deletion");
+            }
+
+        });
+    }
 }); 

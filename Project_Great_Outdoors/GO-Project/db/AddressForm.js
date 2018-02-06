@@ -29,3 +29,16 @@ exports.AddressInsertion=function(ob,callback){
         database.close();
     });
 }
+exports.AddressDeletion=function(ob,callback){
+    mongo.connect(url,function(err,database){
+        if(err) throw err;
+        var db = database.db("Project");
+     // console.log(JSON.stringify(ob)+ "db ka data");
+        db.collection("AddressList").deleteOne(ob,function(err,result){
+            if(err) throw err;    //handle it
+            console.log("Selected addresss deleted");
+            callback(true);
+       })
+        database.close();
+    });
+}

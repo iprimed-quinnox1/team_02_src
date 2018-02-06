@@ -1,0 +1,55 @@
+<div ng-repeat="x in MyItems" ng-click="searchItem(x._id)" ng-show="productList">
+    <div class="itemContainer well">
+        <img ng-src="{{'../routes/productMaster/uploads/'+x.img}}" height="200px">
+        <p style="color:blue;">{{x.price}}</p>
+        <p>
+            <a style="text-decoration:none;">{{x.name}}</a>
+        </p>
+    </div>
+</div>
+<div ng-hide="productList" class="container">
+    <div class="row col-lg-12">
+        <button class="btn btn-warning" ng-click="productList=true" style="float:left">Home</button>
+    </div>
+    <br>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 item-photo">
+            <img ng-src="{{'../routes/productMaster/uploads/'+dataToMap.img}}" style="height:100%;">
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <h2>{{dataToMap.name}}</h2>
+            <p>Price</p>
+            <p>{{dataToMap.price}}</p>
+            <ul ng-repeat="spec in dataToMap.techSpec">
+                <li>{{spec.att}} - {{spec.value}}</li>
+            </ul>
+            <div>
+                <a href="#!goToCart">
+                    <button class="btn btn-success">GoToCart"</button>
+                </a>
+                <button class="btn btn-success" ng-click="AddToCart();">AddToCart</button>
+            </div>
+        </div>
+    </div>
+    <div ng-init="pan1=true;pan3=false">
+        <ul class="nav nav-tabs myList">
+            <li class="active">
+                <button class="btn btn-lg btn-success" ng-click="pan3=false;pan1=true">Description</button>
+            </li>
+            <li>
+                <button class="btn btn-lg btn-success" ng-click="pan1=false;pan3=true">Reviews</button>
+            </li>
+        </ul>
+        <div ng-show="pan1">
+            <h1>Description</h1>
+        </div>
+        <div ng-show="pan3">
+            <h3>Review</h3>
+            <input type="text" placeholder="name" id="id_name">
+            <br>
+            <textarea rows="4" cols="50" placeholder="comment" ng-model="comment" id="id_comment"></textarea>
+            <button ng-click="submitComment()">Submit</button>
+        </div>
+    </div>
+</div>
