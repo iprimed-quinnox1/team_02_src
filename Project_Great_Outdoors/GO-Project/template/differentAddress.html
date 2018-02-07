@@ -13,7 +13,7 @@
                 <!--We need to use ng-repeat here for the item present in the cart-->
                 <td>
                     <div class="itemViewer">
-                        <img ng-src="{{'../routes/productMaster/uploads/'+items.img}}" width="150px" height="150px">
+                        <img ng-src="{{'../routes/productMaster/uploads/'+items.img}}">
                         <div>
                             <h4>{{items.name}}</h4>
                             <button class="btn btn-danger" ng-click="removeItemFromCart(items)">Delete</button>

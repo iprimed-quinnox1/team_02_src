@@ -26,7 +26,7 @@
             </ul>
             <div>
                 <a href="#!goToCart">
-                    <button class="btn btn-success">GoToCart"</button>
+                    <button class="btn btn-success" ng-disabled="{{Cartob.lenght==0}}">GoToCart"</button>
                 </a>
                 <button class="btn btn-success" ng-click="AddToCart();">AddToCart</button>
             </div>

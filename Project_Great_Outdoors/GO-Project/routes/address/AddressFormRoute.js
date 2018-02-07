@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var mon = require("../../db/AddressForm.js");
-router.get('/AddressInitialization', function (request, response) {
+router.post('/AddressInitialization', function (request, response) {
     response.set({
         'Content-Type': 'application/json',
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": true
     });
-
-    mon.AddressInitialization(function callback(result) {
+    var myOb = request.body;
+    mon.AddressInitialization(myOb,function callback(result) {
         response.send(result);
         console.log("callback execute");
         response.end();

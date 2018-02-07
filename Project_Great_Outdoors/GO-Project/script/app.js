@@ -98,7 +98,8 @@ app.controller("homePageCntr", function ($scope, $rootScope, productMasterServic
         productDataInitialization.searchForItem(myOb, function (result) {
             result.quantity=1;
             $rootScope.Cartob.push(result);
-            alert(JSON.stringify($rootScope.Cartob) + "cart ka data ");
+            alert("Added To Cart");
+            //alert(JSON.stringify($rootScope.Cartob) + "cart ka data ");
         });
 
     }
@@ -275,14 +276,15 @@ app.directive("fileInput", ['$parse', function ($parse) {
 
 app.controller("loginController", function ($scope, $rootScope) {
     $rootScope.Cartob =[];
+    $rootScope.logedInUserId = "C101";
     $scope.login = function () {
-        $rootScope.logedInUserId = 101;
+        $rootScope.logedInUserId = 'C101';
       
         window.location.href = "#!goToCart";
     }
 });
 
-app.controller("myCntr", function ($scope, $rootScope, defaultAddress) {
+app.controller("myCntr", function ($scope, $rootScope) {
     //alert(JSON.stringify($rootScope.Cartob));
     //console.log($rootScope.Cartob); 
     $scope.selectedName = 1;
@@ -305,8 +307,8 @@ app.controller("myCntr", function ($scope, $rootScope, defaultAddress) {
 
 var cont = app.controller("mycont", function ($scope, $rootScope, addressForm, defaultAddress) {
 
-
-    addressForm.addressFormListInitialization(function (result) {
+    var userIdob ={customerId:$rootScope.logedInUserId};
+    addressForm.addressFormListInitialization(userIdob,function (result) {
 
         $scope.AddressArray = result;
 
@@ -324,23 +326,22 @@ var cont = app.controller("mycont", function ($scope, $rootScope, addressForm, d
             State: $scope.CustomerState,
             ZIPcode: $scope.CustomerPostcode,
             Country: $scope.CustomerCountry,
-            Type: "T"
+            type: "T"
 
         };
 
-        addressForm.addressFormListUpdate(add).then(function (result) {
-            if (result) {
+        addressForm.addressFormListUpdate(add,function(res){
                 alert("inserted");
-            } else {
-                console.log("Failed to get Client Data");
-            }
+                addressForm.addressFormListInitialization(userIdob,function (result) {
 
+                    $scope.AddressArray = result;
+                });
         });
-        addressForm.addressFormListInitialization(function (result) {
+        /*addressForm.addressFormListInitialization(userIdob,function (result) {
 
             $scope.AddressArray = result;
 
-        });
+        });*/
         $scope.FormData = false;
     }
     $scope.DefaultAddress = function (index) {
@@ -361,7 +362,7 @@ var cont = app.controller("mycont", function ($scope, $rootScope, addressForm, d
         var del = $scope.AddressArray[index].Name;
         addressForm.addressFormListDelete(del);
 
-        addressForm.addressFormListInitialization(function (result) {
+        addressForm.addressFormListInitialization(userIdob,function (result) {
 
             $scope.AddressArray = result;
 
@@ -402,13 +403,14 @@ app.controller("diffAddCntr", function ($scope, $rootScope, fetchSingleUserAddre
         $rootScope.Cartob.splice(index, 1);
     }
     $scope.placeOrder = function () {
-
-        console.log($rootScope.Cartob);
+        
+        //alert(JSON.stringify($rootScope.Cartob));
         for (var i = 0; i < $rootScope.Cartob.length; i++) {
-            $rootScope.Cartob[i]._id = $rootScope.Cartob[i]._id + "" + $rootScope.logedInUserId + "" + new Date();
-            $rootScope.Cartob[i].status = "P";
+            $rootScope.Cartob[i].orderId = $rootScope.Cartob[i]._id + "" + $rootScope.logedInUserId + "" + new Date();
+            $rootScope.Cartob[i].status = "Placed";
             $rootScope.Cartob[i].customerId = $rootScope.logedInUserId;
         }
+        //alert(JSON.stringify($rootScope.Cartob));
         //console.log($rootScope.Cartob);
         placeOrder.placeOrders($rootScope.Cartob);
 

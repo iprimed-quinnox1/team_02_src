@@ -13,10 +13,10 @@ router.post('/placeOrder', function (req, res) {
     var count = 0;
     var getData = req.body.toInsert;
     for (var i = 0; i < getData.length; i++) {
-        var data = { "_id": getData[i]._id, 
-                        "imageUrl": getData[i].imageUrl,
+        var data = { "_id": getData[i].orderId, 
+                        "imageUrl": getData[i].img,
                          "name": getData[i].name, 
-                         "productId": getData[i].productId, 
+                         "productId": getData[i]._id, 
                          "price": getData[i].price, 
                          "quantity": getData[i].quantity, 
                          "status": getData[i].status, 

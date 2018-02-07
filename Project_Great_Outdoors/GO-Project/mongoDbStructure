@@ -52,3 +52,35 @@ db.Addresses.insert([
 ])
 
 db.AddressList.insert({customerId:"C101",Name:"Pratap",PhoneNumber: 7795564789, Address: "kormanagala",City: "Bangalore",State: "Karnataka",ZIPcode: 545445,Country: "India",Type: "T",type:"D"})
+
+
+db.AddressList.insert([
+{"customerId" : "C101",
+	"Name" : "Pratap",
+	"PhoneNumber" : 7795564789,
+	"Address" : "kormanagala",
+	"City" : "Bangalore",
+	"State" : "Karnataka",
+	"ZIPcode" : 545445,
+	"Country" : "India",
+	"type" : "D"},
+	{"customerId" : "C101",
+	"Name" : "Pratap",
+	"PhoneNumber" : 7795564789,
+	"Address" : "kormanagala",
+	"City" : "Bangalore",
+	"State" : "Karnataka",
+	"ZIPcode" : 545445,
+	"Country" : "India",
+	"type" : "T"},
+	{"customerId" : "C102",
+	"Name" : "Pratap",
+	"PhoneNumber" : 7795564789,
+	"Address" : "kormanagala",
+	"City" : "Bangalore",
+	"State" : "Karnataka",
+	"ZIPcode" : 545445,
+	"Country" : "India",
+	"type" : "D"}
+
+])
