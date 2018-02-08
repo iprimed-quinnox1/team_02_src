@@ -5,6 +5,7 @@ exports.placeOrderInsertion=function(ob,callback){
     mongo.connect(url,function(err,database){
         if(err) throw err;
         var db = database.db("Project");
+        //console.log(JSON.stringify(ob));
         db.collection("Orders").insertOne(ob,function(err,result){
             if(err) throw err;    //handle it
             console.log("New Item Inserted");

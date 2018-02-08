@@ -15,6 +15,7 @@
 .PadWellDefaultButton{
     
     float: right;
+    margin: 5px;
 }
 
 ul.li {
@@ -103,6 +104,9 @@ ul.li {
 
 
 /*Style for the  home page*/
+.myOrderButton{
+    float: right;       
+}
 .itemContainer{
     background-color:white;
     width:200px;
@@ -157,4 +161,126 @@ ul.li {
 .itemList tr th{
     text-align: center;
 }
+/*----------------end----------*/
+
+/*
+    style for index page
+*/
+.innerContainer{
+   float:left;
+    display:flex;
+    margin-left:40px;
+    min-height:20vh;
+    width:200px;
+}
+.innerContainerButton{
+    height:5vh;
+    color:greenyellow;
+}
+/*Style for logistic page*/
+
+.logistic_ItemViewer img{
+    display: inline-block;
+    vertical-align: middle;
+    max-width:100%;
+    height:150px;   
+}
+/* orderDetails style */
+.orderDetailsImg{
+    max-width: 150px;
+    height: 150px;
+
+}
+.headingDiv{
+    height: 70px;
+}
+.headingDiv div{
+float:left;
+display: block;
+margin-left:20px;
+padding: 0px 20px 0px 20px;
+
+}
+.orderId {
+    float:right;
+}
+.orderViewer img {
+    display: inline-block;
+    vertical-align: middle;
+    max-width:100%;
+    height:150px;
+}
+.orderViewer div{
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    vertical-align: middle;
+    margin-left: 30px;
+    padding-top:30px;
+
+}
+.orderViewer button{
+    float: right;
+}
+/* Progress bar style */
+
+ol.progtrckr {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ol.progtrckr li {
+    display: inline-block;
+    text-align: center;
+    line-height: 3em;
+}
+
+ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+ol.progtrckr li.progtrckrDone {
+    color: black;
+    border-bottom: 4px solid yellowgreen;
+}
+ol.progtrckr li.progtrckrTodo {
+    color: silver; 
+    border-bottom: 4px solid silver;
+}
+
+ol.progtrckr li:after {
+    content: "\00a0\00a0";
+}
+ol.progtrckr li:before {
+    position: relative;
+    bottom: -2.5em;
+    float: left;
+    left: 50%;
+    line-height: 1em;
+}
+ol.progtrckr li.progtrckrDone:before {
+    content: "\2713";
+    color: white;
+    background-color: yellowgreen;
+    height: 1.2em;
+    width: 1.2em;
+    line-height: 1.2em;
+    border: none;
+    border-radius: 1.2em;
+}
+ol.progtrckr li.progtrckrTodo:before {
+    content: "\039F";
+    color: silver;
+    background-color: white;
+    font-size: 1.5em;
+    bottom: -1.6em;
+}
+
+
 /*----------------end----------*/

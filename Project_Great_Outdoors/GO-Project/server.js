@@ -32,6 +32,11 @@ app.use("/productDescription",productDescription);
 var productDataManagement = require("./routes/order/ProductDataManagement.js");
 app.use("/productData",productDataManagement);
 
+var orderDetail = require("./routes/order/order_orderDetails.js");
+app.use("/orderDetail",orderDetail);
+
+var logisticRouteHandler = require("./routes/logisticRouter");
+app.use("/logistic",logisticRouteHandler);
 
 
 app.listen(3000,function(){

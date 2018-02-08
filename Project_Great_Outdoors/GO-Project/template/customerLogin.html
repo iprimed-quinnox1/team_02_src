@@ -1,7 +1,33 @@
 <div class="container">
-    <input type="text" ng-model="customerId">
+    <!--input type="text" ng-model="customerId">
     <button class="btn-md btn-success" ng-click="login()">LOGIN</button></a>
-    <p>{{customerId}}</p>
-    <a href="#!productMaster">Go To Product Master</a>
-    <a href="#!homePage">GO to home page</a>
+    <p>{{customerId}}</p-->
+    <div class="row">
+        <div class="innerContainer">
+            <div class="well" ng-show="adminViewer" ng-click="adminViewer=false">
+                    <h1>ADMIN</h1>
+            </div>
+            <div class="well" ng-hide="adminViewer">
+                <a href="#!logesticPage"><button class="btn btn-success">Logistic</button></a>
+                <a href="#!productMaster"><button class="btn btn-success">Go To Product Master</button></a>
+            </div>
+            <button class="btn btn-xs innerContainerButton" ng-click="adminViewer=true">X</button>
+        </div>
+        <div class="innerContainer">
+                <div class="well" ng-show="userViewer" ng-click="userViewer=false">
+                        <h1>USER</h1>
+                </div>
+                <div class="well" ng-hide="userViewer">
+                    <a href="#!homePage"><button class="btn btn-info">GO to home page</button></a>
+                </div>
+                <button class="btn btn-xs innerContainerButton" ng-click="userViewer=true">X</button>
+        </div>
+    </div>
+    <!--div>
+        <a href="#!admin"><button class="btn btn-lg btn-success">ADMIN USER</button></a>
+        <a href="#!user"><button class="btn btn-lg btn-success">END USER</button></a>
+    </div-->
+    <!--a href="#!productMaster">Go To Product Master</a-->
+    <!--a href="#!homePage">GO to home page</a-->
+    <!--a href="#!logesticPage">Logistic</a-->
 </div>

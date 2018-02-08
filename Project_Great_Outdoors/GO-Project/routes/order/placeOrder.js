@@ -3,7 +3,7 @@ var router = express.Router();
 var mon = require("../../db/placeOrder.js");
 
 router.post('/placeOrder', function (req, res) {
-    console.log("aa gaya be");
+    //console.log("aa gaya be");
     //console.log(req.body.toInsert)
     res.set({
         'Content-Type': 'application/json',
@@ -20,7 +20,9 @@ router.post('/placeOrder', function (req, res) {
                          "price": getData[i].price, 
                          "quantity": getData[i].quantity, 
                          "status": getData[i].status, 
-                         "customerId": getData[i].customerId };
+                         "customerId": getData[i].customerId,
+                            "address": getData[i].address,
+                        "date":getData[i].Date };
         mon.placeOrderInsertion(data, function (result) {
             if (result) {
                 count++;

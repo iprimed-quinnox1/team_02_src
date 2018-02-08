@@ -1,0 +1,75 @@
+<div class="container">
+    <div>
+        <h1>Your Order</h1>
+        <br>
+        <hr>
+        <div ng-repeat="items in orderDetail">
+            <div class="panel panel-default">
+                <div class="panel-heading headingDiv">
+                    <div class="yourOrder">
+                        <span>
+                            <b>Your Order</b>
+                        </span>
+                        <p> {{items.date}}</p>
+                    </div>
+                    <div>
+                        <span>
+                            <b>Total</b>
+                        </span>
+
+                        <p class="totalPrice">{{items.price*items.quantity}}</p>
+                    </div>
+                    <div>
+                        <span>
+                            <b>SHIP TO</b>
+                        </span>
+
+                        <p>{{items.address}}</p>
+                    </div>
+                    <div style="float:right">
+                        <span>
+                            <b>OrderID # </b>
+                        </span>
+                        <p>{{items._id}}</p>
+                    </div>
+
+                </div>
+                <div class="panel-body orderViewer">
+
+                    <img class="orderDetailsImg" ng-src="{{'../routes/productMaster/uploads/'+items.imageUrl}}" alt="image">
+                    <div>
+                        <h4>{{items.name}}</h4>
+                    </div>
+                    <div>
+                        <span>
+                            <b>Price</b>
+                        </span>
+                        <p>
+                            {{items.price}}
+                        </p>
+                    </div>
+                    <div>
+                        <span>
+                            <b>Quantity</b>
+                        </span>
+                        <p>
+                            {{items.quantity}}
+                            
+                        </p>
+                    </div>
+                    <ol class="progtrckr" data-progtrckr-steps="6">
+                            <li ng-class="{progtrckrDone : items.status>=0, progtrckrTodo :items.status <0 }">Order Placed</li>
+                            <li ng-class="{progtrckrDone : items.status>=1, progtrckrTodo :items.status <1 }">Item Packed</li>
+                            <li ng-class="{progtrckrDone : items.status>=2,progtrckrTodo :items.status <2 }">Shipped</li>
+                            <li ng-class="{progtrckrDone : items.status>=3,progtrckrTodo :items.status <3 }">Delivered</li>
+                        </ol>
+
+          <button class="btn btn-danger" ng-disabled="{{items.status>=2}}"ng-click="orderDetailCancelOrder($index);">Cancel Product</button>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

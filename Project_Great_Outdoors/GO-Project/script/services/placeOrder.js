@@ -5,6 +5,7 @@ app.service("placeOrder",function($http){
         //alert(JSON.stringify(data));
         $http.post("http://localhost:3000/order/placeOrder",data).then(
             function(result){
+               // alert(JSON.stringify(result));
                 alert("Yout order is placed"+ " "+ "Thank you");
             },
             function(error){

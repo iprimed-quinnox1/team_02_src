@@ -26,10 +26,10 @@
                         <p>{{items.quantity}}</p>
                 </td>
                 <td>
-                    <select ng-model="items.address" ng-options="item for item in address"></select>
-                    <!--select class="addList">
-                        <option ng-repeat="x in address">{{x}}</option>
-                    </select-->
+                    <!--select ng-model="items.address" ng-options="item for item in address|myFormat"></select-->
+                    <select class="addList" ng-model="items.address">
+                        <option ng-repeat="x in address">{{x|myFormat}}</option>
+                    </select>
                 </td>
             </tr>
         </tbody>

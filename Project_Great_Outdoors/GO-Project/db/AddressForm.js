@@ -9,10 +9,10 @@ exports.AddressInitialization=function(ob,callback){
         var res = db.collection("AddressList");
         res.find(ob).toArray(function(err,result){
             if(err) throw err;
-            console.log("----------inside Database--------------");
-            console.log(result);
-            console.log("----------end Database--------------");
-            //console.log("whole data sent");
+            //console.log("----------inside Database--------------");
+            //console.log(result);
+            //console.log("----------end Database--------------");
+            console.log("whole data sent");
             callback(result);
 
         });

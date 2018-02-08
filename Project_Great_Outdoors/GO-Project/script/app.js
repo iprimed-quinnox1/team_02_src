@@ -24,14 +24,52 @@ var app = angular.module("myApp", ["ngRoute"]).config(function ($routeProvider) 
             templateUrl: "./template/homePage.html",
             controller: "homePageCntr"
         })
+        .when("/orderdetailpage",{
+            templateUrl:"./template/template_orderDetails.html",
+            controller:"orderPageCntr"
+        })
+        .when("/logesticPage",{
+            templateUrl:"./template/logisticPage.html",
+            controller:"logisticController"
+        })
         /*.when("/desc",{
          templateUrl:"./template/productDescription.html",
          controller:"productDescCntr"
         })*/
 });
 
+/*
+This is the controller to handle the operation related to the 
+view of logistic module .
+Basic operation includes:
+    fetching all the orders from the database and displaying it on the view.
+    Changing the status of the page.
+    Filtering the product based on their order status.
+*/
+app.controller("logisticController",function($scope,logisticService){
+    $scope.statusArray=['Order Placed',"Item Packed","Shipped","Delivered"];
+    logisticService.fetchAllData(function(result){
+        $scope.orderList = result;
+        //alert(JSON.stringify($scope.orderList));
+    })
+    $scope.changeStatus = function(orderId,status,object){
+        var ob ={
+            idOfTheOrder:orderId,
+            status:$scope.statusArray.indexOf(status)
+        };
+        var itemIndex = $scope.orderList.indexOf(object);
+        var statusCode = $scope.statusArray.indexOf(status);
+        logisticService.updateStatus(ob,function(result){
+            if(result==true){
+                $scope.orderList[itemIndex].status=statusCode;
+            }
+        })
+    }
+});
+
+
 //Controller for product Description page
-app.controller("productDescCntr", function ($scope, $http, $location, $parse, productDescriptionService) {
+app.controller("productDescCntr", function ($scope, $location, $parse, productDescriptionService) {
     var pidToSearch = $location.search()._id;
     var myOb = {
         lastSearchedPid: pidToSearch
@@ -65,7 +103,7 @@ app.controller("productDescCntr", function ($scope, $http, $location, $parse, pr
 
 
 //Controller for home page
-app.controller("homePageCntr", function ($scope, $rootScope, productMasterService, productDescriptionService, productDataInitialization) {
+app.controller("homePageCntr", function ($scope, $rootScope,productMasterService, productDescriptionService, productDataInitialization) {
     //$scope.MyItems=JSON.parse(localStorage.ItemList);
     $scope.productList = true;
     $scope.pan1 = true, $scope.pan2 = false, $scope.pan3 = false;
@@ -85,7 +123,7 @@ app.controller("homePageCntr", function ($scope, $rootScope, productMasterServic
         });*/
 
     $scope.goToCart = function(){
-        alert("reached");
+       // alert("reached");
         window.location.href = "#!goToCart";
     }
     
@@ -141,6 +179,7 @@ app.controller("homePageCntr", function ($scope, $rootScope, productMasterServic
             }
         });*/
     }
+    
 
 });
 
@@ -275,6 +314,8 @@ app.directive("fileInput", ['$parse', function ($parse) {
 
 
 app.controller("loginController", function ($scope, $rootScope) {
+    $scope.userViewer = true;
+    $scope.adminViewer =true;
     $rootScope.Cartob =[];
     $rootScope.logedInUserId = "C101";
     $scope.login = function () {
@@ -305,7 +346,7 @@ app.controller("myCntr", function ($scope, $rootScope) {
     }
 });
 
-var cont = app.controller("mycont", function ($scope, $rootScope, addressForm, defaultAddress) {
+var cont = app.controller("mycont", function ($scope, $rootScope, addressForm, defaultAddress,placeOrder) {
 
     var userIdob ={customerId:$rootScope.logedInUserId};
     addressForm.addressFormListInitialization(userIdob,function (result) {
@@ -373,28 +414,50 @@ var cont = app.controller("mycont", function ($scope, $rootScope, addressForm, d
         customerId: $rootScope.logedInUserId
     };
     defaultAddress.getDefaultAddress(ob, function (result) {
-        $rootScope.defaultAddress = result[0].City + " " + result[0].Country + " " + result[0].Address;
-        $scope.currentDeliveryAddress = $rootScope.defaultAddress;
+        //alert(JSON.stringify(result)+" fetched by default address");
+        $rootScope.defaultAddress = result[0].Name+" "+result[0].PhoneNumber+" "+result[0].Address+" "+result[0].City+" "+result[0].State;
         $scope.AddressObjectDefault = result[0];
+        for (var i = 0; i < $rootScope.Cartob.length; i++) {
+            $rootScope.Cartob[i].address = $rootScope.defaultAddress;
+        }
         // alert($rootScope.defaultAddress);
     });
+    //Written by @nke
+    $scope.placeOrder = function () {
+       // alert("reaching");
+        //alert(JSON.stringify($scope.AddressObjectDefault));
+        //alert(JSON.stringify($scope.AddressArray));
+        //alert(JSON.stringify($rootScope.Cartob));
+        //alert(JSON.stringify($rootScope.Cartob));
+       // alert(JSON.stringify($scope.AddressObjectDefault));
+        for (var i = 0; i < $rootScope.Cartob.length; i++) {
+            $rootScope.Cartob[i].address =  $scope.AddressObjectDefault.Name+" "+$scope.AddressObjectDefault.PhoneNumber+" "+$scope.AddressObjectDefault.Address+" "+$scope.AddressObjectDefault.City+" "+$scope.AddressObjectDefault.State;//JSON.stringify($scope.AddressObjectDefault);
+            $rootScope.Cartob[i].orderId = $rootScope.Cartob[i]._id + "" + $rootScope.logedInUserId + "" + new Date();
+            $rootScope.Cartob[i].status = 0;
+            $rootScope.Cartob[i].customerId = $rootScope.logedInUserId;
+            $rootScope.Cartob[i].Date=new Date().toDateString();
+        }
+        //alert(JSON.stringify($rootScope.Cartob));
+        placeOrder.placeOrders($rootScope.Cartob);
+
+    }
+    
+
 });
 app.controller("diffAddCntr", function ($scope, $rootScope, fetchSingleUserAddress, placeOrder) {
     var object = {
         customerId: $rootScope.logedInUserId
     };
-
+    
     fetchSingleUserAddress.fetchUserAddress(object, function (result) {
         var add = [];
         for (var i = 0; i < result.length; i++) {
-            var addressString = result[i].City + " " + result[i].Country + " " + result[i].Address;
+            var addressString = JSON.stringify(result[i]);
             add.push(addressString);
         }
         $scope.address = add;
     });
-    for (var i = 0; i < $rootScope.Cartob.length; i++) {
-        $rootScope.Cartob[i].address = $rootScope.defaultAddress;
-    }
+    
     //alert(JSON.stringify($rootScope.Cartob));
 
     $scope.removeItemFromCart = function (ob) {
@@ -407,13 +470,53 @@ app.controller("diffAddCntr", function ($scope, $rootScope, fetchSingleUserAddre
         //alert(JSON.stringify($rootScope.Cartob));
         for (var i = 0; i < $rootScope.Cartob.length; i++) {
             $rootScope.Cartob[i].orderId = $rootScope.Cartob[i]._id + "" + $rootScope.logedInUserId + "" + new Date();
-            $rootScope.Cartob[i].status = "Placed";
+            $rootScope.Cartob[i].status = 0;
             $rootScope.Cartob[i].customerId = $rootScope.logedInUserId;
+            
         }
-        //alert(JSON.stringify($rootScope.Cartob));
+     //   alert(JSON.stringify($rootScope.Cartob));
         //console.log($rootScope.Cartob);
         placeOrder.placeOrders($rootScope.Cartob);
 
         //console.log($scope.address);
     }
+    
+});
+
+app.filter("myFormat",function(){
+    return function(x){
+        var temp = JSON.parse(x);
+        var text = temp.Name+" "+temp.PhoneNumber+" "+temp.Address+" "+temp.City+" "+temp.State;
+        return text;
+    }
+});
+app.controller("orderPageCntr", function ($scope, $rootScope,orderDetailService){
+    
+    //alert("hello");
+    var ob= {customerId:$rootScope.logedInUserId};
+    orderDetailService.orderDetailsInitialization(ob,function(callback){
+        $rootScope.orderDetail=callback;
+        console.log($rootScope.orderDetail);       
+    });
+    
+    $scope.orderDetailCancelOrder=function(index){
+       
+        var ob= {_id:$rootScope.orderDetail[index]._id};
+        orderDetailService.orderDetailsDeletion(ob,function(callback){
+if(callback)
+{
+alert("Order Item Deleted");
+/* var ob= {customerId:$rootScope.logedInUserId};
+orderDetailService.orderDetailsInitialization(ob,function(callback){
+    $rootScope.orderDetail=callback;
+});*/
+$rootScope.orderDetail.splice(index,1);
+}
+else{
+alert("error");
+}
+        });
+    }
+
+
 });
