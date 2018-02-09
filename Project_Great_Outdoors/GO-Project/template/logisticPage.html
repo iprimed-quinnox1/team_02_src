@@ -1,4 +1,4 @@
-<h1>GO Logistic</h1>
+<h1 style="padding-left:20px;">GO Logistic</h1>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
@@ -12,13 +12,20 @@
 
         <!--Adding search button on navigation bar-->
 
-        <form class="navbar-form navbar-left" role="search">
+        <form class="navbar-form navbar-left logistic_radioDecorator" role="search">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" placeholder="Search" ng-model="searchValue">
             </div>
-            <button type="submit" class="btn btn-default">
+            <input type="radio" name="filter" value=" " selected="true" ng-model="selectedRadioButton"><b>ALL<span>{{'('+totalOrder+')'}}</span></b>
+            <input type="radio" name="filter" value="0" ng-model="selectedRadioButton"><b>Order Placed<span>{{'('+totalPlaced+')'}}</span></b>
+            <input type="radio" name="filter" value="1" ng-model="selectedRadioButton"><b>Item Packed<span>{{'('+totalPacked+')'}}</span></b>
+            <input type="radio" name="filter" value="2" ng-model="selectedRadioButton"><b>Shipped<span>{{'('+totalShipped+')'}}</span></b>
+            <input type="radio" name="filter" value="3" ng-model="selectedRadioButton"><b>Delivered<span>{{'('+totalDelivered+')'}}</span></b>
+            <input type="radio" name="filter" value="4" ng-model="selectedRadioButton"><b>Cancelled<span>{{'('+ totalCancelled+')'}}</span></b>
+           
+            <!--button type="submit" class="btn btn-default" ng-click="checkFunction()">
                 <span class="glyphicon glyphicon-search"></span>
-            </button>
+            </button-->
         </form>
 
         <!--Adding user login and logout icon-->
@@ -45,7 +52,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="x in orderList" ng-init="object=x">
+            <tr ng-repeat="x in orderList|filter:{status:selectedRadioButton}|filter:{address:searchValue}" ng-init="object=x">
                 <td>{{x._id}}</td>
                 <td class="logistic_ItemViewer">
                     <img ng-src="{{'./routes/productMaster/uploads/'+x.imageUrl}}">
@@ -53,7 +60,7 @@
                 <td>{{x.name}}</td>
                 <td>{{x.address}}</td>
                 <td>{{x.quantity}}</td>
-                <td>{{statusArray[x.status]}}</td>
+                <td ng-class="{deliverdClass:x.status==3}">{{statusArray[x.status]}}</td>
                 <td>
                     <select ng-model="selectedStatus" ng-options="y for y in statusArray">
                     </select>

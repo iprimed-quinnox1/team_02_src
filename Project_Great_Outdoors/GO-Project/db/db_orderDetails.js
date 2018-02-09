@@ -20,7 +20,7 @@ exports.orderDetailDeletion=function(ob,callback){
     mongo.connect(url,function(err,database){
         if(err) throw err;
         var db = database.db("Project");
-        db.collection("Orders").deleteOne(ob,function(err,result){
+        db.collection("Orders").updateOne(ob,{$set:{status:4}},function(err,result){
 if(err) throw err;
 console.log("orderDetail Deleted");
 callback(true);

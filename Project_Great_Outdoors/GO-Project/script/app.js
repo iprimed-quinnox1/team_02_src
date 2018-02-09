@@ -47,11 +47,20 @@ Basic operation includes:
     Filtering the product based on their order status.
 */
 app.controller("logisticController",function($scope,logisticService){
-    $scope.statusArray=['Order Placed',"Item Packed","Shipped","Delivered"];
+    $scope.statusArray=['Order Placed',"Item Packed","Shipped","Delivered","Cancelled"];
     logisticService.fetchAllData(function(result){
         $scope.orderList = result;
         //alert(JSON.stringify($scope.orderList));
+        getCount();
     })
+    var getCount = function(){
+        $scope.totalOrder = $scope.orderList.length;
+        $scope.totalDelivered = $scope.orderList.filter(e=>e.status===3).length;
+        $scope.totalShipped = $scope.orderList.filter(e=>e.status===2).length;
+        $scope.totalPacked = $scope.orderList.filter(e=>e.status===1).length;
+        $scope.totalPlaced = $scope.orderList.filter(e=>e.status===0).length;
+        $scope.totalCancelled = $scope.orderList.filter(e=>e.status===4).length;
+    }
     $scope.changeStatus = function(orderId,status,object){
         var ob ={
             idOfTheOrder:orderId,
@@ -62,8 +71,14 @@ app.controller("logisticController",function($scope,logisticService){
         logisticService.updateStatus(ob,function(result){
             if(result==true){
                 $scope.orderList[itemIndex].status=statusCode;
+                getCount();
             }
         })
+    }
+    $scope.selectedRadioButton ='';
+    $scope.checkFunction = function(){
+        alert("reaching");
+        alert($scope.selectedRadioButton);
     }
 });
 
@@ -472,6 +487,7 @@ app.controller("diffAddCntr", function ($scope, $rootScope, fetchSingleUserAddre
             $rootScope.Cartob[i].orderId = $rootScope.Cartob[i]._id + "" + $rootScope.logedInUserId + "" + new Date();
             $rootScope.Cartob[i].status = 0;
             $rootScope.Cartob[i].customerId = $rootScope.logedInUserId;
+            $rootScope.Cartob[i].Date=new Date().toDateString();
             
         }
      //   alert(JSON.stringify($rootScope.Cartob));
@@ -505,12 +521,11 @@ app.controller("orderPageCntr", function ($scope, $rootScope,orderDetailService)
         orderDetailService.orderDetailsDeletion(ob,function(callback){
 if(callback)
 {
-alert("Order Item Deleted");
-/* var ob= {customerId:$rootScope.logedInUserId};
+alert("Order Item Cancelled");
+var ob= {customerId:$rootScope.logedInUserId};
 orderDetailService.orderDetailsInitialization(ob,function(callback){
     $rootScope.orderDetail=callback;
-});*/
-$rootScope.orderDetail.splice(index,1);
+});
 }
 else{
 alert("error");

@@ -249,6 +249,10 @@ ol.progtrckr li.progtrckrDone {
     color: black;
     border-bottom: 4px solid yellowgreen;
 }
+ol.progtrckr li.progtrckrCancel {
+    color: silver; 
+    border-bottom: 4px solid rgb(255, 0, 0);
+}
 ol.progtrckr li.progtrckrTodo {
     color: silver; 
     border-bottom: 4px solid silver;
@@ -259,6 +263,7 @@ ol.progtrckr li:after {
 }
 ol.progtrckr li:before {
     position: relative;
+    content: "\2715";
     bottom: -2.5em;
     float: left;
     left: 50%;
@@ -284,3 +289,10 @@ ol.progtrckr li.progtrckrTodo:before {
 
 
 /*----------------end----------*/
+.deliverdClass{
+    background-color:greenyellow;
+}
+
+.logistic_radioDecorator input{
+    margin-left:60px;
+}
