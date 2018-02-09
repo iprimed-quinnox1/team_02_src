@@ -1,7 +1,7 @@
 app.service("addressForm", function ($http) {
     this.addressFormListUpdate = function (add,cbk) {
         //alert("Came to refetch the data with"+"   "+JSON.stringify(add));
-        return $http.post("http://localhost:3000/addressF/AddressInsertion", add).then(
+        return $http.post("http://192.168.10.12:3000/addressF/AddressInsertion", add).then(
             function (response) {
                 if (response.data == true) {
                 cbk();
@@ -14,7 +14,7 @@ app.service("addressForm", function ($http) {
 
     this.addressFormListInitialization = function (ob,callback) {
 
-        $http.post("http://localhost:3000/addressF/AddressInitialization",ob).then(function (response) {
+        $http.post("http://192.168.10.12:3000/addressF/AddressInitialization",ob).then(function (response) {
             if (response) {
                 console.log("Whole data fetched ");
 
@@ -30,7 +30,7 @@ app.service("addressForm", function ($http) {
     }
     this.addressFormListDelete = function (del) {
         var data = {name:del};
-        return $http.post("http://localhost:3000/addressF/AddressDelete", data).then(function (response) {
+        return $http.post("http://192.168.10.12:3000/addressF/AddressDelete", data).then(function (response) {
 
             if (response.data == true) {
                 alert("deleted");

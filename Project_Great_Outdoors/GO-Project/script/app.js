@@ -361,7 +361,7 @@ app.controller("myCntr", function ($scope, $rootScope) {
     }
 });
 
-var cont = app.controller("mycont", function ($scope, $rootScope, addressForm, defaultAddress,placeOrder) {
+var cont = app.controller("mycont", function ($scope, $location,$rootScope, addressForm, defaultAddress,placeOrder) {
 
     var userIdob ={customerId:$rootScope.logedInUserId};
     addressForm.addressFormListInitialization(userIdob,function (result) {
@@ -454,7 +454,8 @@ var cont = app.controller("mycont", function ($scope, $rootScope, addressForm, d
         }
         //alert(JSON.stringify($rootScope.Cartob));
         placeOrder.placeOrders($rootScope.Cartob);
-
+        $rootScope.Cartob=null;
+        $location.path("/");
     }
     
 
@@ -488,12 +489,15 @@ app.controller("diffAddCntr", function ($scope, $rootScope, fetchSingleUserAddre
             $rootScope.Cartob[i].status = 0;
             $rootScope.Cartob[i].customerId = $rootScope.logedInUserId;
             $rootScope.Cartob[i].Date=new Date().toDateString();
+        
             
         }
      //   alert(JSON.stringify($rootScope.Cartob));
         //console.log($rootScope.Cartob);
         placeOrder.placeOrders($rootScope.Cartob);
-
+        $rootScope.Cartob=null;
+        $location.path("/");
+        
         //console.log($scope.address);
     }
     

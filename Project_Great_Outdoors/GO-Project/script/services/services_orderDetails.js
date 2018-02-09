@@ -3,7 +3,7 @@
  app.service("orderDetailService",function($http){
 
     this.orderDetailsInitialization=function(data,callback){
-$http.post("http://localhost:3000/orderDetail/orderInitialization",data).then(
+$http.post("http://192.168.10.12:3000/orderDetail/orderInitialization",data).then(
     function (result) {
 if(result){
 callback(result.data);
@@ -15,7 +15,7 @@ else {
 }
 
 this.orderDetailsDeletion=function(data,callback){
-    $http.post("http://localhost:3000/orderDetail/orderDeletion",data).then(function(result){
+    $http.post("http://192.168.10.12:3000/orderDetail/orderDeletion",data).then(function(result){
 if(result){
 callback(true);
 }
