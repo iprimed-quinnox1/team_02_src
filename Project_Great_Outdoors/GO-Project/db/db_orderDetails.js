@@ -28,3 +28,15 @@ callback(true);
         database.close();
 });
 }
+exports.orderDetailAddressChange=function(ob,callback){
+    mongo.connect(url,function(err,database){
+        if(err) throw err;
+        var db = database.db("Project");
+        db.collection("Orders").updateOne({_id:ob._id},{$set:{address:ob.Address}},function(err,result){
+if(err) throw err;
+console.log("orderDetail Deleted");
+callback(true);
+        });
+        database.close();
+});
+}

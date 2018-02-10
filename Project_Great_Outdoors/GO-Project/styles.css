@@ -27,6 +27,10 @@ ul.li {
     color: red;
     
 }
+.setDefaultgly{
+    float: left;
+    color:skyblue;
+}
 
 .pad {
     padding: 0px 0px 0px 0px;
@@ -105,7 +109,15 @@ ul.li {
 
 /*Style for the  home page*/
 .myOrderButton{
-    float: right;       
+    padding: 2px 2px 2px 2px;       
+}
+.myOrderButton div{
+    float:left ;
+    margin-left:20px;
+}
+.myOrderButton a{
+    float:left;
+    margin-left:20px;
 }
 .itemContainer{
     background-color:white;
@@ -218,6 +230,9 @@ padding: 0px 20px 0px 20px;
     margin-left: 30px;
     padding-top:30px;
 
+}
+.changeAddressOrder{
+    margin: 2px;
 }
 .orderViewer button{
     float: right;

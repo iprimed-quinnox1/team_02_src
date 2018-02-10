@@ -3,7 +3,7 @@
         <h1>Your Order</h1>
         <br>
         <hr>
-        <div ng-repeat="items in orderDetail">
+        <div ng-repeat="items in orderDetail | orderBy:'-date'">
             <div class="panel panel-default">
                 <div class="panel-heading headingDiv">
                     <div class="yourOrder">
@@ -63,9 +63,59 @@
                         <li ng-class="{progtrckrDone : items.status>=2&&items.status<4,progtrckrTodo :items.status <2 ,progtrckrCancel :items.status==4 }">Shipped</li>
                         <li ng-class="{progtrckrDone : items.status>=3&&items.status<4,progtrckrTodo :items.status <3 ,progtrckrCancel :items.status==4 }">Delivered</li>
                     </ol>
+                    <!--button class="btn btn-success" ng-click="orderDetailAddressChange();">Change Address</button-->
+          <button class="btn btn-danger changeAddressOrder" ng-disabled="{{items.status>=2}}"ng-click="orderDetailCancelOrder($index);">Cancel Product</button>
+             
+          
+          <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-success changeAddressOrder " data-toggle="modal"  ng-disabled="{{items.status>=2}}" ng-click=" orderDetailAddressChange($index);" data-target="#myModal">Change Address</button>
+        
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
 
-          <button class="btn btn-danger" ng-disabled="{{items.status>=2}}"ng-click="orderDetailCancelOrder($index);">Cancel Product</button>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-header NewAddress">
+                        <h4>
+                            <b>Choose a shipping Address</b>
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 pad" ng-repeat="Address in AddressArray">
+                            <div class="well">
+                                    <!--button type="button" class="glyphicon glyphicon-remove RemoveButton" ng-click="DeleteAddress($index)"></button-->
+                                <ul class="add">
+                                    <li>{{Address.Name}}</li>
+                                    <li>{{Address.Email}}</li>
+                                    <li>{{Address.Address}}</li>
+                                    <li>{{Address.City}}</li>
+                                    <li>{{Address.State}}</li>
+                                    <li>{{Address.ZIPcode}}</li>
+                                    <li>{{Address.Country}}</li>
+
+                                </ul>
+                                <button type="button" class=" btn btn-sm btn-info defaultAdd" data-dismiss="modal" ng-click="orderAddressDelivery($index)">Deliver to this Addres</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-success" data-dismiss="modal">close</button>
+                    </div>
                 </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    
+</div> 
+        
+        </div>
 
             </div>
 

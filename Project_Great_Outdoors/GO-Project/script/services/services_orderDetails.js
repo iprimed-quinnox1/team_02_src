@@ -24,5 +24,17 @@ alert("some error in fetching Data");
      }
      });
 }
+this.orderAddressChange=function(data,callback){
+    $http.post("http://192.168.10.12:3000/orderDetail/orderAddresschanges",data).then(function(result){
+if(result)
+{
+    callback(true);
+
+}
+else{
+    alert("some error in fetching Data");
+}
+    });
+}
 
 });

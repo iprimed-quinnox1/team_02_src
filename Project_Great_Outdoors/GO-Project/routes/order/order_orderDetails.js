@@ -26,5 +26,17 @@ response.send(callback);
 response.end();
     });
 });
+router.post("/orderAddresschanges",function(request,response){
+    response.set({
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true
+    });
+    var ob=request.body;
+    mon.orderDetailAddressChange(ob,function(callback){
+response.send(callback);
+response.end();
+    });
+});
 //export this router to use in our index.js
 module.exports = router;

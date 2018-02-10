@@ -41,4 +41,31 @@ app.service("addressForm", function ($http) {
 
         });
     }
+    this.addressDefaultSet = function (set,callback) {
+        
+        return $http.post("http://192.168.10.12:3000/addressF/AddressDefaultSet", set).then(function (response) {
+
+            if (response.data == true) {
+             //   alert("changed default");
+                callback(response);
+            }
+            else {
+                alert("Error setting");
+            }
+
+        });
+    }
+    this.addressDefault=function(set,callback){
+    return $http.post("http://192.168.10.12:3000/addressF/AddressDefault", set).then(function (response) {
+
+            if (response.data == true) {
+              // alert("changed default address");
+              callback(response);
+            }
+            else {
+                alert("Error setting");
+            }
+
+        });
+    }
 }); 

@@ -30,7 +30,8 @@
                         <div class="col-sm-4 pad" ng-repeat="Address in AddressArray">
                             <div class="well">
                                     <button type="button" class="glyphicon glyphicon-remove RemoveButton" ng-click="DeleteAddress($index)"></button>
-                                <ul class="add">
+                                    <button type="button" class=" glyphicon glyphicon-king setDefaultgly " ng-if="Address.type!='D'" ng-click="setDefaultAddress($index)"></button>
+                                    <ul class="add">
                                     <li>{{Address.Name}}</li>
                                     <li>{{Address.Email}}</li>
                                     <li>{{Address.Address}}</li>
@@ -40,7 +41,7 @@
                                     <li>{{Address.Country}}</li>
 
                                 </ul>
-                                <button type="button" class=" btn btn-sm btn-info defaultAdd" ng-click="DefaultAddress($index)">Deliver to this Addres</button>
+                                <button type="button" class=" btn btn-sm btn-info defaultAdd" ng-click="DefaultAddress($index)">Deliver to this Address</button>
                             </div>
                         </div>
 

@@ -44,3 +44,29 @@ exports.AddressDeletion=function(ob,callback){
         database.close();
     });
 }
+exports.AddressDefaultSetdb=function(ob,callback){
+mongo.connect(url,function(err,database){
+    if(err) throw err;
+    var db = database.db("Project");
+ // console.log(JSON.stringify(ob)+ "db ka data");
+    db.collection("AddressList").update({customerId:ob.customerId},{$set:{type:"T"}},{multi: true},function(err,result){
+        if(err) throw err;    //handle it
+        console.log("Selected address is set to Temp");
+        callback(true);
+   })
+    database.close();
+});
+}
+exports.AddressDefaultdb=function(ob,callback){
+    mongo.connect(url,function(err,database){
+        if(err) throw err;
+        var db = database.db("Project");
+      console.log(JSON.stringify(ob)+ "db ka data");
+        db.collection("AddressList").updateOne({Name:ob.Name},{$set:{type:"D"}},function(err,result){
+            if(err) throw err;    //handle it
+            console.log("Selected address is set to Default");
+            callback(true);
+       })
+        database.close();
+    });
+    }

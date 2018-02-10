@@ -118,7 +118,7 @@ app.controller("productDescCntr", function ($scope, $location, $parse, productDe
 
 
 //Controller for home page
-app.controller("homePageCntr", function ($scope, $rootScope,productMasterService, productDescriptionService, productDataInitialization) {
+app.controller("homePageCntr", function ($scope,$rootScope,productMasterService, productDescriptionService, productDataInitialization) {
     //$scope.MyItems=JSON.parse(localStorage.ItemList);
     $scope.productList = true;
     $scope.pan1 = true, $scope.pan2 = false, $scope.pan3 = false;
@@ -143,6 +143,8 @@ app.controller("homePageCntr", function ($scope, $rootScope,productMasterService
     }
     
     $scope.AddToCart = function () {
+       
+        
         var myOb = {
             datas: $scope.selectedId
         };
@@ -152,9 +154,11 @@ app.controller("homePageCntr", function ($scope, $rootScope,productMasterService
             result.quantity=1;
             $rootScope.Cartob.push(result);
             alert("Added To Cart");
+            $scope.productList = true;
+           
             //alert(JSON.stringify($rootScope.Cartob) + "cart ka data ");
         });
-
+       
     }
 
     $scope.searchItem = function (idOfItemClicked) {
@@ -411,7 +415,33 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
             ZIPcode: $scope.AddressArray[index].ZIPcode,
             Country: $scope.AddressArray[index].Country
         }
+       
 
+    }
+    $scope.setDefaultAddress = function(index){
+        var data={customerId: $rootScope.logedInUserId}
+        addressForm.addressDefaultSet(data,function(callback){
+            if(callback){
+                //alert("aagaya");
+                var def = {Name:$scope.AddressArray[index].Name};
+                addressForm.addressDefault(def,function(callback){
+                    if(callback){
+                        alert("Changed default addressDefault");
+                        $scope.DefaultAddress(index);
+                    }
+                    else{
+                        alert("error in setting default address");
+                    }
+
+                });
+            }
+            else 
+            {
+                alert("didnt set address");
+            }
+
+        });
+        
     }
     $scope.DeleteAddress = function (index) {
 
@@ -460,7 +490,7 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
     
 
 });
-app.controller("diffAddCntr", function ($scope, $rootScope, fetchSingleUserAddress, placeOrder) {
+app.controller("diffAddCntr", function ($scope,$location,$rootScope, fetchSingleUserAddress, placeOrder) {
     var object = {
         customerId: $rootScope.logedInUserId
     };
@@ -510,7 +540,7 @@ app.filter("myFormat",function(){
         return text;
     }
 });
-app.controller("orderPageCntr", function ($scope, $rootScope,orderDetailService){
+app.controller("orderPageCntr", function ($scope,$rootScope,orderDetailService,addressForm){
     
     //alert("hello");
     var ob= {customerId:$rootScope.logedInUserId};
@@ -535,7 +565,34 @@ else{
 alert("error");
 }
         });
-    }
+    };
 
-
+    $scope.orderDetailAddressChange=function(idx){
+        
+        var userIdob ={customerId:$rootScope.logedInUserId};
+        addressForm.addressFormListInitialization(userIdob,function (result) {
+    
+            $scope.AddressArray = result; 
+     });   
+          $scope.ind=idx;
+    };
+    $scope.orderAddressDelivery=function(index){
+        //alert(index);
+        var add =  $scope.AddressArray[index].Name+" "+$scope.AddressArray[index].PhoneNumber+" "+$scope.AddressArray[index].Address+" "+$scope.AddressArray[index].City+" "+$scope.AddressArray[index].State;
+        var ob= {_id:$rootScope.orderDetail[$scope.ind]._id,Address:add};
+       // alert(JSON.stringify(ob));
+        orderDetailService.orderAddressChange(ob,function(callback){
+if(callback)
+{
+alert("Your Delivery address is changed");
+var ob= {customerId:$rootScope.logedInUserId};
+orderDetailService.orderDetailsInitialization(ob,function(callback){
+    $rootScope.orderDetail=callback;
+});
+}
+else{
+alert("error");
+}
+        });
+    };
 });
