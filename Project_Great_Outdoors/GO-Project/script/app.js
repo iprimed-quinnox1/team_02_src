@@ -25,12 +25,16 @@ var app = angular.module("myApp", ["ngRoute"]).config(function ($routeProvider) 
             controller: "homePageCntr"
         })
         .when("/orderdetailpage",{
-            templateUrl:"./template/template_orderDetails.html",
+            templateUrl:"itemGift./template/template_orderDetails.html",
             controller:"orderPageCntr"
         })
         .when("/logesticPage",{
             templateUrl:"./template/logisticPage.html",
             controller:"logisticController"
+        })
+        .when("/addressPage",{
+            templateUrl:"./template/template_addressPage.html",
+            controller:"addressPagecontroller"
         })
         /*.when("/desc",{
          templateUrl:"./template/productDescription.html",
@@ -198,6 +202,7 @@ app.controller("homePageCntr", function ($scope,$rootScope,productMasterService,
             }
         });*/
     }
+   
     
 
 });
@@ -363,6 +368,10 @@ app.controller("myCntr", function ($scope, $rootScope) {
     $scope.showCartOb = function () {
         console.log($rootScope.Cartob);
     }
+    $scope.giftItem=function(index){
+        alert(index);
+        alert("gift ma ha");
+    }
 });
 
 var cont = app.controller("mycont", function ($scope, $location,$rootScope, addressForm, defaultAddress,placeOrder) {
@@ -428,6 +437,12 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
                     if(callback){
                         alert("Changed default addressDefault");
                         $scope.DefaultAddress(index);
+                        var userIdob ={customerId:$rootScope.logedInUserId};
+    addressForm.addressFormListInitialization(userIdob,function (result) {
+
+        $scope.AddressArray = result;
+
+    });
                     }
                     else{
                         alert("error in setting default address");
@@ -542,7 +557,7 @@ app.filter("myFormat",function(){
 });
 app.controller("orderPageCntr", function ($scope,$rootScope,orderDetailService,addressForm){
     
-    
+    //alert("hello");
     var ob= {customerId:$rootScope.logedInUserId};
     orderDetailService.orderDetailsInitialization(ob,function(callback){
         $rootScope.orderDetail=callback;
@@ -577,10 +592,10 @@ alert("error");
           $scope.ind=idx;
     };
     $scope.orderAddressDelivery=function(index){
-       
+        //alert(index);
         var add =  $scope.AddressArray[index].Name+" "+$scope.AddressArray[index].PhoneNumber+" "+$scope.AddressArray[index].Address+" "+$scope.AddressArray[index].City+" "+$scope.AddressArray[index].State;
         var ob= {_id:$rootScope.orderDetail[$scope.ind]._id,Address:add};
-       
+       // alert(JSON.stringify(ob));
         orderDetailService.orderAddressChange(ob,function(callback){
 if(callback)
 {
@@ -595,4 +610,86 @@ alert("error");
 }
         });
     };
+});
+app.controller("addressPagecontroller",function ($scope,$rootScope, addressForm){
+
+    var userIdob ={customerId:$rootScope.logedInUserId};
+    addressForm.addressFormListInitialization(userIdob,function (result) {
+
+        $scope.AddressArray = result;
+
+    });
+
+
+    $scope.AddressSave = function () {
+
+        var add = {
+            customerId: $rootScope.logedInUserId,
+            Name: $scope.CustomerName,
+            PhoneNumber: $scope.CustomerNumber,
+            Address: $scope.CustomerAddress1,
+            City: $scope.CustomerCity,
+            State: $scope.CustomerState,
+            ZIPcode: $scope.CustomerPostcode,
+            Country: $scope.CustomerCountry,
+            type: "T"
+
+        };
+
+        addressForm.addressFormListUpdate(add,function(res){
+                alert("inserted");
+                addressForm.addressFormListInitialization(userIdob,function (result) {
+
+                    $scope.AddressArray = result;
+                });
+        });
+        /*addressForm.addressFormListInitialization(userIdob,function (result) {
+
+            $scope.AddressArray = result;
+
+        });*/
+        $scope.FormData = false;
+    }
+    $scope.setDefaultAddress = function(index){
+        var data={customerId: $rootScope.logedInUserId}
+        addressForm.addressDefaultSet(data,function(callback){
+            if(callback){
+                //alert("aagaya");
+                var def = {Name:$scope.AddressArray[index].Name};
+                addressForm.addressDefault(def,function(callback){
+                    if(callback){
+                        alert("Changed default addressDefault");                       
+                        var userIdob ={customerId:$rootScope.logedInUserId};
+    addressForm.addressFormListInitialization(userIdob,function (result) {
+
+        $scope.AddressArray = result;
+
+    });
+                    }
+                    else{
+                        alert("error in setting default address");
+                    }
+
+                });
+            }
+            else 
+            {
+                alert("didnt set address");
+            }
+
+        });
+        
+    }
+    $scope.DeleteAddress = function (index) {
+
+        var del = $scope.AddressArray[index].Name;
+        addressForm.addressFormListDelete(del);
+
+        addressForm.addressFormListInitialization(userIdob,function (result) {
+
+            $scope.AddressArray = result;
+
+        });
+
+    }
 });

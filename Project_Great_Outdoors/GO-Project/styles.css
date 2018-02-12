@@ -28,8 +28,11 @@ ul.li {
     
 }
 .setDefaultgly{
-    float: left;
-    color:skyblue;
+    
+    color:rgba(0, 255, 242, 0.747);
+}
+.setNotDefault{
+    color:white;
 }
 
 .pad {
@@ -58,7 +61,7 @@ ul.li {
 .defaultAdd{
     position: fixed;
     bottom: auto;
-    background-color: rgb(172, 169, 169);
+  /*  background-color: rgb(172, 169, 169);*/
     text-decoration-color: black;   
 }
 .AddressDet{
@@ -90,6 +93,10 @@ ul.li {
 .itemViewer .itemPrice {
     display: inline-block;
     margin-left: 30px;
+}
+.itemviewer .itemGift{
+    color: firebrick;
+    margin-left: 40px;
 }
 
 .itemViewer .totalPrice {

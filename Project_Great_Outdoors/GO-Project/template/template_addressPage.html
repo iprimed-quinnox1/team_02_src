@@ -1,77 +1,40 @@
-<div class="container" ng-hide="FormData">
-    <div class="well PadWellDefualt">
-        <ul class="add">
-            <li>Name:-{{AddressObjectDefault.Name}}</li>
-            <li>Number:-{{AddressObjectDefault.PhoneNumber}}</li>
-            <li>Address:-{{AddressObjectDefault.Address}}</li>
-            <li>City:-{{AddressObjectDefault.City}}</li>
-            <li>State:-{{AddressObjectDefault.State}}</li>
-            <li>ZIPCode:-{{AddressObjectDefault.ZIPcode}}</li>
-            <li>Country:-{{AddressObjectDefault.Country}}</li>
+<div class="container">
+    <header><h1>My Address</h1></header>
+    <div class="row">
+        <div class="col-sm-4 pad" ng-repeat="Address in AddressArray">
+            <div class="well">
+                <button type="button" class="glyphicon glyphicon-remove RemoveButton" ng-click="DeleteAddress($index)"></button>
+                <button type="button" class=" glyphicon glyphicon-star" ng-class="{setDefaultgly:Address.type=='D',setNotDefault:Address.type=='T'}"
+                    ng-click="setDefaultAddress($index)"></button>
+                <ul class="add">
+                    <li><b>{{Address.Name}}</b></li>
+                    <li>{{Address.PhoneNumber}}</li>
+                    <li>{{Address.Address}}</li>
+                    <li>{{Address.City}}</li>
+                    <li>{{Address.State}}</li>
+                    <li>{{Address.ZIPcode}}</li>
+                    <li>{{Address.Country}}</li>
 
-        </ul>
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-sm PadWellDefaultButton" data-toggle="modal" data-target="#myModal">Change Address</button>
-        <button class="btn btn-md btn-success  btn-sm PadWellDefaultButton" ng-click="placeOrder()">Place Order</button>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+                </ul>
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-header NewAddress">
-                        <h4>
-                            <b>Choose a shipping Address</b>
-                        </h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4 pad" ng-repeat="Address in AddressArray">
-                            <div class="well">
-                                    <button type="button" class="glyphicon glyphicon-remove RemoveButton" ng-click="DeleteAddress($index)"></button>
-                                    <button type="button" class=" glyphicon glyphicon-star" ng-class="{setDefaultgly:Address.type=='D',setNotDefault:Address.type=='T'}" ng-click="setDefaultAddress($index)"></button>
-                                    <ul class="add">
-                                    <li><b>{{Address.Name}}</b></li>
-                                    <li>{{Address.PhoneNumber}}</li>
-                                    <li>{{Address.Address}}</li>
-                                    <li>{{Address.City}}</li>
-                                    <li>{{Address.State}}</li>
-                                    <li>{{Address.ZIPcode}}</li>
-                                    <li>{{Address.Country}}</li>
-
-                                </ul>
-                                <button type="button" class=" btn btn-sm btn-info defaultAdd" ng-click="DefaultAddress($index)">Deliver to this Address</button>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3 padNew">
-
-                            <div class="well">
-                                <div class="modal-head NewAddress">
-                                    <b>New Address</b>
-                                </div>
-                                <ul class="add">
-                                    <li>
-                                        <h1 class="glyphicon glyphicon-plus glyphi" data-dismiss="modal" ng-click="FormData=true"></h1>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-success" data-dismiss="modal">close</button>
-                    </div>
-                </div>
             </div>
-
-
         </div>
 
+        <div class="col-sm-3 padNew">
+
+            <div class="well">
+
+                <b>New Address</b>
+
+                <ul class="add">
+                    <li>
+                        <h1 class="glyphicon glyphicon-plus glyphi" data-dismiss="modal" ng-click="FormData=true"></h1>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
     </div>
-    
 </div>
 <!-- Address form when you click add new -->
 <div ng-show="FormData">
@@ -106,7 +69,7 @@
                         </div>
                     </div>
 
-                    
+
                     <!-- City-->
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="textinput">City</label>
@@ -152,7 +115,4 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
-
 </div>
-<a href="#!diffAdd">Different Addresses</a>
