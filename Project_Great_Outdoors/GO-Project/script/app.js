@@ -577,10 +577,10 @@ alert("error");
           $scope.ind=idx;
     };
     $scope.orderAddressDelivery=function(index){
-        //alert(index);
+       
         var add =  $scope.AddressArray[index].Name+" "+$scope.AddressArray[index].PhoneNumber+" "+$scope.AddressArray[index].Address+" "+$scope.AddressArray[index].City+" "+$scope.AddressArray[index].State;
         var ob= {_id:$rootScope.orderDetail[$scope.ind]._id,Address:add};
-       // alert(JSON.stringify(ob));
+       
         orderDetailService.orderAddressChange(ob,function(callback){
 if(callback)
 {
