@@ -542,7 +542,7 @@ app.filter("myFormat",function(){
 });
 app.controller("orderPageCntr", function ($scope,$rootScope,orderDetailService,addressForm){
     
-    //alert("hello");
+    
     var ob= {customerId:$rootScope.logedInUserId};
     orderDetailService.orderDetailsInitialization(ob,function(callback){
         $rootScope.orderDetail=callback;
