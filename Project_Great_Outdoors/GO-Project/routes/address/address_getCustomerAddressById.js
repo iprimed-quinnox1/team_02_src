@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mon = require("../../db/fetchCustomerAddress.js");
+var mon = require("../../db/db_fetchCustomerAddress.js");
 
 router.post("/getAddress",function(request,response){
     //console.log(request.body);

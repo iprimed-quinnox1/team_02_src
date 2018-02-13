@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var mon = require("../../db/ProductDataManagement")
+var mon = require("../../db/db_ProductDataManagement")
 
 router.post("/getData",function(request,response){
     response.set({

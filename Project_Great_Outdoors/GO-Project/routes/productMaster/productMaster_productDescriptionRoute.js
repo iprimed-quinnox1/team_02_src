@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var mon = require("../db/productDescriptionDatabaseOp");
+var mon = require("../../db/db_productDescriptionDatabaseOp.js");
 
 router.post("/getData",function(request,response){
     response.set({

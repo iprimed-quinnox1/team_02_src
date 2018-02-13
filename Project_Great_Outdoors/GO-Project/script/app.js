@@ -1,35 +1,35 @@
 var app = angular.module("myApp", ["ngRoute"]).config(function ($routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "./template/customerLogin.html",
+            templateUrl: "./template/template_customerLogin.html",
             controller: "loginController"
         })
         .when("/add", {
-            templateUrl: "./template/address.html",
+            templateUrl: "./template/template_address.html",
             controller: "mycont"
         })
         .when("/goToCart", {
-            templateUrl: "./template/showCart.html",
+            templateUrl: "./template/template_showCart.html",
             controller: "myCntr"
         })
         .when("/diffAdd", {
-            templateUrl: "./template/differentAddress.html",
+            templateUrl: "./template/template_differentAddress.html",
             controller: "diffAddCntr"
         })
         .when("/productMaster", {
-            templateUrl: "./template/productMaster.html",
+            templateUrl: "./template/template_productMaster.html",
             controller: "productMasterCntr"
         })
         .when("/homePage", {
-            templateUrl: "./template/homePage.html",
+            templateUrl: "./template/template_homePage.html",
             controller: "homePageCntr"
         })
         .when("/orderdetailpage",{
-            templateUrl:"itemGift./template/template_orderDetails.html",
+            templateUrl:"./template/template_orderDetails.html",
             controller:"orderPageCntr"
         })
         .when("/logesticPage",{
-            templateUrl:"./template/logisticPage.html",
+            templateUrl:"./template/template_logisticPage.html",
             controller:"logisticController"
         })
         .when("/addressPage",{
@@ -367,10 +367,6 @@ app.controller("myCntr", function ($scope, $rootScope) {
     }();
     $scope.showCartOb = function () {
         console.log($rootScope.Cartob);
-    }
-    $scope.giftItem=function(index){
-        alert(index);
-        alert("gift ma ha");
     }
 });
 

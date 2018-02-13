@@ -1,7 +1,7 @@
 app.service("productDescriptionService",function($http){
     this.searchForItem = function(data,callback){
         //alert("reahed here with:----"+JSON.stringify(data));
-        $http.post("http://192.168.10.12:3000/productDescription/getData", data).then(
+        $http.post(url+"productDescription/getData", data).then(
             function(result){
                 callback(result.data);
             },
@@ -13,7 +13,7 @@ app.service("productDescriptionService",function($http){
 
     this.registerComment = function(data,callback){
       //  alert("reahed here with:----"+JSON.stringify(data));
-        $http.post("http://192.168.10.12:3000/productDescription/registerComment", data).then(
+        $http.post(url+"productDescription/registerComment", data).then(
             function(result){
                 callback(result.data);
             },

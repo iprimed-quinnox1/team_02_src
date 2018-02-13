@@ -3,7 +3,7 @@ app.service("placeOrder",function($http){
         //alert("reacing");
         var data = {toInsert:ob};
         //alert(JSON.stringify(data));
-        $http.post("http://192.168.10.12:3000/order/placeOrder",data).then(
+        $http.post(url+"order/placeOrder",data).then(
             function(result){
                // alert(JSON.stringify(result));
                 alert("Yout order is placed"+ " "+ "Thank you");

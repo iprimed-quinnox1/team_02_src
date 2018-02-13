@@ -8,7 +8,7 @@ var router = express.Router();
 
 
 
-var mon = require("../db/logisticDatabaseOp");
+var mon = require("../../db/db_logisticDatabaseOp");
 
 router.get("/getAllData", function (request, response) {
     response.set({

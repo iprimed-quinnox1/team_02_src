@@ -1,6 +1,6 @@
 app.service("productMasterService",function($http){
     this.initItemList = function(callback){
-        $http.get("http://192.168.10.12:3000/productMaster/allItems").then(
+        $http.get(url+"productMaster/allItems").then(
             function(result){
                 callback(result.data);
             },
@@ -10,7 +10,7 @@ app.service("productMasterService",function($http){
         );
     }
     this.createNewProduct = function(fd,callback){
-        $http.post("http://192.168.10.12:3000/productMaster/createNew", fd, {
+        $http.post(url+"productMaster/createNew", fd, {
             transformRequest: angular.identity,
             headers: {
                 'Content-Type': undefined
@@ -26,7 +26,7 @@ app.service("productMasterService",function($http){
     }
 
     this.updateTechSpec = function(data,callback){
-        $http.post("http://192.168.10.12:3000/productMaster/updateTechSpec",data).then(
+        $http.post(url+"productMaster/updateTechSpec",data).then(
             function(result){
                 callback(result.data);
             },
@@ -37,7 +37,7 @@ app.service("productMasterService",function($http){
     }
 
     this.DeleteProduct = function(data,callback){
-        $http.post("http://localhost:3000/productMaster/DeleteProduct",data).then(
+        $http.post(url+"productMaster/DeleteProduct",data).then(
             function(result){
                 callback(result.data);
             },
@@ -48,7 +48,7 @@ app.service("productMasterService",function($http){
     }
 
     this.DeleteProductList = function(data,callback){
-        $http.post("http://localhost:3000/productMaster/DeleteProductList",data).then(
+        $http.post(url+"productMaster/DeleteProductList",data).then(
             function(result){
                 callback(result.data);
             },
