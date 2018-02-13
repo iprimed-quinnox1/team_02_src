@@ -29,10 +29,10 @@ ul.li {
 }
 .setDefaultgly{
     
-    color:rgba(0, 255, 242, 0.747);
+    color:rgba(255, 0, 43, 0.747);
 }
 .setNotDefault{
-    color:white;
+    color:rgb(51, 43, 43);
 }
 
 .pad {
@@ -95,7 +95,7 @@ ul.li {
     margin-left: 30px;
 }
 .itemviewer .itemGift{
-    color: firebrick;
+    color: rgb(33, 230, 66);
     margin-left: 40px;
 }
 
@@ -317,4 +317,67 @@ ol.progtrckr li.progtrckrTodo:before {
 
 .logistic_radioDecorator input{
     margin-left:30px;
+}
+.cancelledClass{
+    background-color:red;
+}
+/* addressPage.html style sheet*/
+.addressViewer .addressBlock {
+    height: 30vh;
+    border-style: solid;
+    border-width: thin;
+    margin-top: 10px;
+    word-wrap:break-word;
+    overflow-y: hidden;
+
+
+}
+
+.addressViewer {
+    align-items: center;
+}
+
+.addressViewer ul {
+    list-style-type: none;
+}
+
+.buttonHolder .makeDefault {
+    float: left;
+}
+
+.buttonHolder .removeAddress {
+    float: right;
+}
+
+.addressBlock {
+    padding-top:10px;
+    padding-right:5px;
+    padding-left:5px;
+    
+}
+
+.addNew {
+    border-style: dashed;
+    text-align: center;
+    height: 30vh;
+    border-width: thin;
+    margin-top: 10px;
+    overflow-y: hidden;
+
+}
+.addNew div{
+    margin-top:8vh;
+}
+.addNew div p{
+    font-size:20px;
+    color: gainsboro;
+}
+.drop-shadow {
+    padding-top:10px;
+    padding-right:5px;
+    padding-left:5px;
+    -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+    border-radius:5px;
+
 }

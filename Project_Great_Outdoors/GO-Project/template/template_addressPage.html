@@ -1,6 +1,39 @@
 <div class="container">
-    <header><h1>My Address</h1></header>
-    <div class="row">
+    <header>
+        <h1>My Address</h1>
+    </header>
+    <div class="container addressViewer">
+        <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-3 col-md-3 col-sm-5 col-xs-12 addNew">
+            <div>
+                <h1 class="glyphicon glyphicon-plus" ng-click="FormData=true"></h1>
+                <p>Add New address</p>
+            </div>
+        </div>
+        <div  class=" well col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-3 col-md-3 col-sm-5 col-xs-12 drop-shadow "
+            ng-repeat="Address in AddressArray">
+            <div class="buttonHolder">
+                
+                <button class="makeDefault " ng-class="{setDefaultgly:Address.type=='D',setNotDefault:Address.type=='T'}"
+                    ng-click="setDefaultAddress($index)">Default</button>
+                    <button class=" RemoveButton glyphicon glyphicon-remove "  ng-confirm-click="Are you sure to delete this Address ?" confirmed-click="DeleteAddress($index)"></button>
+            </div>
+            <hr>
+            <ul>
+                <li>
+                    <b>{{Address.Name}}</b>
+                </li>
+                <li>{{Address.PhoneNumber}}</li>
+                <li>{{Address.Address}}</li>
+                <li>{{Address.City}}</li>
+                <li>{{Address.State}}</li>
+                <li>{{Address.ZIPcode}}</li>
+                <li>{{Address.Country}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--div class="row">
         <div class="col-sm-4 pad" ng-repeat="Address in AddressArray">
             <div class="well">
                 <button type="button" class="glyphicon glyphicon-remove RemoveButton" ng-click="DeleteAddress($index)"></button>
@@ -35,6 +68,7 @@
             </div>
         </div>
     </div>
+</div-->
 </div>
 <!-- Address form when you click add new -->
 <div ng-show="FormData">

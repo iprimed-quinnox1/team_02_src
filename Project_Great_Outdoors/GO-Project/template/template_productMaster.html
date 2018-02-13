@@ -22,7 +22,7 @@
                 </button>
             </td>
             <td>
-                <button ng-click="removeProduct(item)">
+                <button ng-confirm-click="Are you sure to delete this record ?" confirmed-click="removeProduct(item)">
                     <span style="color: red;" class="glyphicon glyphicon-remove-circle"></span>
                 </button>
             </td>
@@ -99,7 +99,7 @@
             <tr ng-repeat="x in selectedItem.techSpec">
                 <td>{{x.att }}</td>
                 <td>{{x.value}}</td>
-                <td style="float:right;cursor:pointer; color: red" class="glyphicon glyphicon-remove-circle" ng-click="removeProductList($index)"></td>
+                <td style="float:right;cursor:pointer; color: red" class="glyphicon glyphicon-remove-circle" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="removeProductList($index)"></td>
             </tr>
         </tbody>
     </table>

@@ -29,8 +29,8 @@
                     <div class="row">
                         <div class="col-sm-4 pad" ng-repeat="Address in AddressArray">
                             <div class="well">
-                                    <button type="button" class="glyphicon glyphicon-remove RemoveButton" ng-click="DeleteAddress($index)"></button>
-                                    <button type="button" class=" glyphicon glyphicon-star" ng-class="{setDefaultgly:Address.type=='D',setNotDefault:Address.type=='T'}" ng-click="setDefaultAddress($index)"></button>
+                                    <button type="button" class="glyphicon glyphicon-remove RemoveButton"  ng-confirm-click="Are you sure to delete this Address ?" confirmed-click="DeleteAddress($index)"></button>
+                                    <button type="button" class=" btn btn-sm" ng-class="{setDefaultgly:Address.type=='D',setNotDefault:Address.type=='T'}" ng-click="setDefaultAddress($index)">Default</button>
                                     <ul class="add">
                                     <li><b>{{Address.Name}}</b></li>
                                     <li>{{Address.PhoneNumber}}</li>

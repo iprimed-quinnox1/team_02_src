@@ -60,7 +60,7 @@
                 <td>{{x.name}}</td>
                 <td>{{x.address}}</td>
                 <td>{{x.quantity}}</td>
-                <td ng-class="{deliverdClass:x.status==3}">{{statusArray[x.status]}}</td>
+                <td ng-class="{deliverdClass:x.status==3,cancelledClass:x.status==4}">{{statusArray[x.status]}}</td>
                 <td>
                     <select ng-model="selectedStatus" ng-options="y for y in statusArray">
                     </select>

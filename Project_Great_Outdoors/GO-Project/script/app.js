@@ -368,6 +368,13 @@ app.controller("myCntr", function ($scope, $rootScope) {
     $scope.showCartOb = function () {
         console.log($rootScope.Cartob);
     }
+    $scope.giftButton=function(index){
+     $rootScope.Cartob[index].gift=1;
+     //alert("This item will be packed in gift")
+
+    
+
+    };
 });
 
 var cont = app.controller("mycont", function ($scope, $location,$rootScope, addressForm, defaultAddress,placeOrder) {
@@ -493,7 +500,7 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
             $rootScope.Cartob[i].customerId = $rootScope.logedInUserId;
             $rootScope.Cartob[i].Date=new Date().toDateString();
         }
-        //alert(JSON.stringify($rootScope.Cartob));
+        alert(JSON.stringify($rootScope.Cartob));
         placeOrder.placeOrders($rootScope.Cartob);
         $rootScope.Cartob=null;
         $location.path("/");
@@ -533,7 +540,7 @@ app.controller("diffAddCntr", function ($scope,$location,$rootScope, fetchSingle
         
             
         }
-     //   alert(JSON.stringify($rootScope.Cartob));
+      alert(JSON.stringify($rootScope.Cartob));
         //console.log($rootScope.Cartob);
         placeOrder.placeOrders($rootScope.Cartob);
         $rootScope.Cartob=null;
@@ -631,7 +638,6 @@ app.controller("addressPagecontroller",function ($scope,$rootScope, addressForm)
             type: "T"
 
         };
-
         addressForm.addressFormListUpdate(add,function(res){
                 alert("inserted");
                 addressForm.addressFormListInitialization(userIdob,function (result) {
@@ -689,3 +695,17 @@ app.controller("addressPagecontroller",function ($scope,$rootScope, addressForm)
 
     }
 });
+app.directive('ngConfirmClick', [
+    function(){
+        return {
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Are you sure?";
+                var clickAction = attr.confirmedClick;
+                element.bind('click',function (event) {
+                    if ( window.confirm(msg) ) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+}])

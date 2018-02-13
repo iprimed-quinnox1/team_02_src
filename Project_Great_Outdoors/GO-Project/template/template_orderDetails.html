@@ -56,6 +56,7 @@
                             {{items.quantity}}
                             
                         </p>
+                        <p ng-if="items.gift"><b>This Item will be packed in gift</b></p>
                     </div>
                     <ol class="progtrckr" data-progtrckr-steps="6">
                         <li ng-class="{progtrckrDone : items.status>=0&&items.status<4, progtrckrTodo :items.status <0,progtrckrCancel :items.status==4 }">Order Placed</li>
@@ -64,7 +65,7 @@
                         <li ng-class="{progtrckrDone : items.status>=3&&items.status<4,progtrckrTodo :items.status <3 ,progtrckrCancel :items.status==4 }">Delivered</li>
                     </ol>
                     <!--button class="btn btn-success" ng-click="orderDetailAddressChange();">Change Address</button-->
-          <button class="btn btn-danger changeAddressOrder" ng-disabled="{{items.status>=2}}"ng-click="orderDetailCancelOrder($index);">Cancel Product</button>
+          <button class="btn btn-danger changeAddressOrder" ng-disabled="{{items.status>=2}}" ng-confirm-click="Are you sure you want to cancel this item" confirmed-click="orderDetailCancelOrder($index)">Cancel Product</button>
              
           
           <!-- Trigger the modal with a button -->
