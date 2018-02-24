@@ -430,7 +430,9 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
        
 
     }
-    $scope.setDefaultAddress = function(index){
+    $scope.setDefaultAddress = function(obj){
+        var index= $scope.AddressArray.indexOf(obj);
+        
         var data={customerId: $rootScope.logedInUserId}
         addressForm.addressDefaultSet(data,function(callback){
             if(callback){
@@ -461,7 +463,8 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
         });
         
     }
-    $scope.DeleteAddress = function (index) {
+    $scope.DeleteAddress = function (obj) {
+        var index=$scope.AddressArray.indexOf(obj);
 
         var del = $scope.AddressArray[index].Name;
         addressForm.addressFormListDelete(del);
@@ -500,7 +503,7 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
             $rootScope.Cartob[i].customerId = $rootScope.logedInUserId;
             $rootScope.Cartob[i].Date=new Date().toDateString();
         }
-        alert(JSON.stringify($rootScope.Cartob));
+        //alert(JSON.stringify($rootScope.Cartob));
         placeOrder.placeOrders($rootScope.Cartob);
         $rootScope.Cartob=null;
         $location.path("/");
@@ -652,7 +655,8 @@ app.controller("addressPagecontroller",function ($scope,$rootScope, addressForm)
         });*/
         $scope.FormData = false;
     }
-    $scope.setDefaultAddress = function(index){
+    $scope.setDefaultAddress = function(obj){
+        var index= $scope.AddressArray.indexOf(obj);
         var data={customerId: $rootScope.logedInUserId}
         addressForm.addressDefaultSet(data,function(callback){
             if(callback){
@@ -682,8 +686,8 @@ app.controller("addressPagecontroller",function ($scope,$rootScope, addressForm)
         });
         
     }
-    $scope.DeleteAddress = function (index) {
-
+    $scope.DeleteAddress = function (obj) {
+        var index=$scope.AddressArray.indexOf(obj);
         var del = $scope.AddressArray[index].Name;
         addressForm.addressFormListDelete(del);
 

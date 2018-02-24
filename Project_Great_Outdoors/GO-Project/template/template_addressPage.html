@@ -10,12 +10,12 @@
             </div>
         </div>
         <div  class=" well col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-3 col-md-3 col-sm-5 col-xs-12 drop-shadow "
-            ng-repeat="Address in AddressArray">
+            ng-repeat="Address in AddressArray|orderBy:'type'">
             <div class="buttonHolder">
                 
-                <button class="makeDefault " ng-class="{setDefaultgly:Address.type=='D',setNotDefault:Address.type=='T'}"
-                    ng-click="setDefaultAddress($index)">Default</button>
-                    <button class=" RemoveButton glyphicon glyphicon-remove "  ng-confirm-click="Are you sure to delete this Address ?" confirmed-click="DeleteAddress($index)"></button>
+                <button type="button" class=" btn btn-sm btn-danger" ng-if="Address.type=='D'">Default Address</button>
+                <button type="button" class=" btn btn-sm" ng-if="Address.type=='T'" ng-click="setDefaultAddress(Address)">Make This as Default</button>
+                    <button class=" RemoveButton glyphicon glyphicon-remove "  ng-confirm-click="Are you sure to delete this Address ?" confirmed-click="DeleteAddress(Address)"></button>
             </div>
             <hr>
             <ul>
@@ -28,6 +28,7 @@
                 <li>{{Address.State}}</li>
                 <li>{{Address.ZIPcode}}</li>
                 <li>{{Address.Country}}</li>
+            
             </ul>
         </div>
     </div>

@@ -27,10 +27,11 @@
                         </h4>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 pad" ng-repeat="Address in AddressArray">
+                        <div class="col-sm-4 pad" ng-repeat="Address in AddressArray|orderBy:'type'">
                             <div class="well">
-                                    <button type="button" class="glyphicon glyphicon-remove RemoveButton"  ng-confirm-click="Are you sure to delete this Address ?" confirmed-click="DeleteAddress($index)"></button>
-                                    <button type="button" class=" btn btn-sm" ng-class="{setDefaultgly:Address.type=='D',setNotDefault:Address.type=='T'}" ng-click="setDefaultAddress($index)">Default</button>
+                                    <button type="button" class="glyphicon glyphicon-remove RemoveButton"  ng-confirm-click="Are you sure to delete this Address ?" confirmed-click="DeleteAddress(Address)"></button>
+                                    <button type="button" class=" btn btn-sm btn-danger" ng-if="Address.type=='D'">Default Address</button>
+                                    <button type="button" class=" btn btn-sm" ng-if="Address.type=='T'" ng-click="setDefaultAddress(Address)">Make This as Default</button>
                                     <ul class="add">
                                     <li><b>{{Address.Name}}</b></li>
                                     <li>{{Address.PhoneNumber}}</li>
