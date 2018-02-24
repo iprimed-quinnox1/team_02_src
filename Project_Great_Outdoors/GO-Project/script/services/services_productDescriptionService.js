@@ -22,5 +22,20 @@ app.service("productDescriptionService",function($http){
             }
         );
     }
+    this.feedbackData = function(ob,callback){
+         
+         var data={userid:ob};
+         //alert("reahed here with:----"+JSON.stringify(data));
+          $http.post(url+"productDescription/feedBackData", data).then(function(result){
+                  if(result.data){
+                 
+                  callback(result.data);  
+                }else{
+                    alert("some error in fetching feedback");
+                }
+                  
+                  
+              }          );
+      }
 
 });

@@ -381,3 +381,147 @@ ol.progtrckr li.progtrckrTodo:before {
     border-radius:5px;
 
 }
+/* abhishek home page */
+.topnav ul {
+	border-bottom: 1px solid #B71C1C;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ce1e42;
+    max-height: 76px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+.color {
+  background-color: #ce1e42;
+  border-bottom: 1px solid #B71C1C;
+
+}
+
+.topnav ul li {
+	float: right;
+}
+
+.topnav ul li a {
+	font-size: 16px;
+    display: inline-block;
+    color:white;
+    text-align: center;
+    padding: 23px 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+/*nav-bar*/
+
+.span-logo img {
+	display: inline-block;
+	vertical-align: top;
+	height: 75px;
+	min-height: 75px;
+	width: 75px;
+	min-width: 75px;
+	float: left;
+    /*nav-bar*/
+	padding: 0px;
+}
+
+.span-logo p {
+	font-size: 16px;
+	text-decoration: none;
+	color: #f2f2f2;
+	float: left;
+	padding: 15px 0px;
+}
+/*nav-bar*/
+
+.topnav ul li a:hover {background-color: #560909;}
+
+.topnav ul li.icon {display: none;}
+
+@media screen and (max-width:680px) {
+  .topnav ul li:not(:first-child) {display: none;}
+  .topnav ul li.icon {
+    float: right;
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width:680px) {
+  .topnav.responsive ul {position: relative;}
+  .topnav.responsive ul li.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive ul li {
+    float: none;
+    display: inline;
+  }
+  .topnav.responsive ul li a {
+    display: block;
+    text-align: left;
+  }
+}
+
+.fancy-monk {
+	font-size: 25px;
+	color: #EFEBE9;
+	margin: 0px;
+	text-align: center;
+	height: 600px;
+	min-height: 400px;
+	background-image: url("./images/background1.jpg");
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-color: rgba(0, 0, 0, 0.5px);
+}
+.fancy-monk h1 {
+	font-size: 40px;
+	margin: 0;
+	padding-top: 150px;
+}
+.colorWhite{
+    color:white !important;    
+}
+.navbar-inverse .navbar-nav>li>a{
+    color: white;
+}
+.signinup{
+    /*nav-bar*/
+ width:100%;
+ height:135vh;
+ background:grey;
+ opacity:0.6;
+}
+
+
+ /* footer css */
+
+ footer {
+  background-color: rgba(44, 62, 80, 1.0);
+
+  width: 100%;
+  bottom: 0;
+  font-weight: lighter;
+  color: white;
+}
+.footerHeader{
+  width:100%;
+  padding:1em;
+  background-color:rgba(52, 73, 94,1.0);
+  text-align:center;
+  color:white;
+}
+footer h3{
+  font-weight:lighter;
+}
+
+footer iframe {
+  width:100%;
+  position:relative;
+  height:170px;
+}

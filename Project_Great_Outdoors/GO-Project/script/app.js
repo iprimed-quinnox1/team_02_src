@@ -24,22 +24,22 @@ var app = angular.module("myApp", ["ngRoute"]).config(function ($routeProvider) 
             templateUrl: "./template/template_homePage.html",
             controller: "homePageCntr"
         })
-        .when("/orderdetailpage",{
-            templateUrl:"./template/template_orderDetails.html",
-            controller:"orderPageCntr"
+        .when("/orderdetailpage", {
+            templateUrl: "./template/template_orderDetails.html",
+            controller: "orderPageCntr"
         })
-        .when("/logesticPage",{
-            templateUrl:"./template/template_logisticPage.html",
-            controller:"logisticController"
+        .when("/logesticPage", {
+            templateUrl: "./template/template_logisticPage.html",
+            controller: "logisticController"
         })
-        .when("/addressPage",{
-            templateUrl:"./template/template_addressPage.html",
-            controller:"addressPagecontroller"
+        .when("/addressPage", {
+            templateUrl: "./template/template_addressPage.html",
+            controller: "addressPagecontroller"
         })
-        /*.when("/desc",{
-         templateUrl:"./template/productDescription.html",
-         controller:"productDescCntr"
-        })*/
+    /*.when("/desc",{
+     templateUrl:"./template/productDescription.html",
+     controller:"productDescCntr"
+    })*/
 });
 
 /*
@@ -50,37 +50,37 @@ Basic operation includes:
     Changing the status of the page.
     Filtering the product based on their order status.
 */
-app.controller("logisticController",function($scope,logisticService){
-    $scope.statusArray=['Order Placed',"Item Packed","Shipped","Delivered","Cancelled"];
-    logisticService.fetchAllData(function(result){
+app.controller("logisticController", function ($scope, logisticService) {
+    $scope.statusArray = ['Order Placed', "Item Packed", "Shipped", "Delivered", "Cancelled"];
+    logisticService.fetchAllData(function (result) {
         $scope.orderList = result;
         //alert(JSON.stringify($scope.orderList));
         getCount();
     })
-    var getCount = function(){
+    var getCount = function () {
         $scope.totalOrder = $scope.orderList.length;
-        $scope.totalDelivered = $scope.orderList.filter(e=>e.status===3).length;
-        $scope.totalShipped = $scope.orderList.filter(e=>e.status===2).length;
-        $scope.totalPacked = $scope.orderList.filter(e=>e.status===1).length;
-        $scope.totalPlaced = $scope.orderList.filter(e=>e.status===0).length;
-        $scope.totalCancelled = $scope.orderList.filter(e=>e.status===4).length;
+        $scope.totalDelivered = $scope.orderList.filter(e => e.status === 3).length;
+        $scope.totalShipped = $scope.orderList.filter(e => e.status === 2).length;
+        $scope.totalPacked = $scope.orderList.filter(e => e.status === 1).length;
+        $scope.totalPlaced = $scope.orderList.filter(e => e.status === 0).length;
+        $scope.totalCancelled = $scope.orderList.filter(e => e.status === 4).length;
     }
-    $scope.changeStatus = function(orderId,status,object){
-        var ob ={
-            idOfTheOrder:orderId,
-            status:$scope.statusArray.indexOf(status)
+    $scope.changeStatus = function (orderId, status, object) {
+        var ob = {
+            idOfTheOrder: orderId,
+            status: $scope.statusArray.indexOf(status)
         };
         var itemIndex = $scope.orderList.indexOf(object);
         var statusCode = $scope.statusArray.indexOf(status);
-        logisticService.updateStatus(ob,function(result){
-            if(result==true){
-                $scope.orderList[itemIndex].status=statusCode;
+        logisticService.updateStatus(ob, function (result) {
+            if (result == true) {
+                $scope.orderList[itemIndex].status = statusCode;
                 getCount();
             }
         })
     }
-    $scope.selectedRadioButton ='';
-    $scope.checkFunction = function(){
+    $scope.selectedRadioButton = '';
+    $scope.checkFunction = function () {
         alert("reaching");
         alert($scope.selectedRadioButton);
     }
@@ -122,7 +122,7 @@ app.controller("productDescCntr", function ($scope, $location, $parse, productDe
 
 
 //Controller for home page
-app.controller("homePageCntr", function ($scope,$rootScope,productMasterService, productDescriptionService, productDataInitialization) {
+app.controller("homePageCntr", function ($scope, $rootScope, productMasterService, productDescriptionService, productDataInitialization) {
     //$scope.MyItems=JSON.parse(localStorage.ItemList);
     $scope.productList = true;
     $scope.pan1 = true, $scope.pan2 = false, $scope.pan3 = false;
@@ -141,28 +141,30 @@ app.controller("homePageCntr", function ($scope,$rootScope,productMasterService,
            
         });*/
 
-    $scope.goToCart = function(){
-       // alert("reached");
+
+
+    $scope.goToCart = function () {
+        // alert("reached");
         window.location.href = "#!goToCart";
     }
-    
+
     $scope.AddToCart = function () {
-       
-        
+
+
         var myOb = {
             datas: $scope.selectedId
         };
 
 
         productDataInitialization.searchForItem(myOb, function (result) {
-            result.quantity=1;
+            result.quantity = 1;
             $rootScope.Cartob.push(result);
             alert("Added To Cart");
             $scope.productList = true;
-           
+
             //alert(JSON.stringify($rootScope.Cartob) + "cart ka data ");
         });
-       
+
     }
 
     $scope.searchItem = function (idOfItemClicked) {
@@ -177,23 +179,46 @@ app.controller("homePageCntr", function ($scope,$rootScope,productMasterService,
             //alert(JSON.stringify($scope.dataToMap));
         });
         $scope.productList = false;
+        $scope.getRegisterdUserFeedbacks=function(){
+        
+           // alert("aaya");
+            var userid = $scope.selectedId;
+            productDescriptionService.feedbackData(userid, function (callback) {
+                if (callback) {
+                    $scope.feedback = callback;
+                    // alert(JSON.stringify(feedback));
+                }
+                else {
+                    alert("error");
+                }
+
+            });
+        } 
+        $scope.getRegisterdUserFeedbacks();
     }
 
     $scope.submitComment = function () {
-        var name = document.getElementById("id_name").value;
-        var comment = document.getElementById("id_comment").value;
+       
+        var name = $scope.commentUserName;
+        var comment = $scope.comment;
         if (name == null || comment == null) {
-            alert("enter properly");
+            alert("Missing review details");
             return;
         }
         var myOb = {
             userName: name,
             comment: comment,
             idOfProduct: $scope.selectedId,
-        };
+            date:new Date().toDateString()
+          };
         productDescriptionService.registerComment(myOb, function (result) {
             if (result == true) {
+                
+                $scope.commentUserName = null;
+                $scope.comment = null;
+                $scope.getRegisterdUserFeedbacks();               
                 alert("Your feedback registered successfuly");
+                
             }
         });
         /*$http.post("http://192.168.10.32:3000/registerComment", myOb).then(function (response) {
@@ -201,9 +226,10 @@ app.controller("homePageCntr", function ($scope,$rootScope,productMasterService,
                 alert("Your feedback registered successfuly");
             }
         });*/
+        
     }
-   
-    
+
+
 
 });
 
@@ -339,12 +365,12 @@ app.directive("fileInput", ['$parse', function ($parse) {
 
 app.controller("loginController", function ($scope, $rootScope) {
     $scope.userViewer = true;
-    $scope.adminViewer =true;
-    $rootScope.Cartob =[];
+    $scope.adminViewer = true;
+    $rootScope.Cartob = [];
     $rootScope.logedInUserId = "C101";
     $scope.login = function () {
         $rootScope.logedInUserId = 'C101';
-      
+
         window.location.href = "#!goToCart";
     }
 });
@@ -368,19 +394,19 @@ app.controller("myCntr", function ($scope, $rootScope) {
     $scope.showCartOb = function () {
         console.log($rootScope.Cartob);
     }
-    $scope.giftButton=function(index){
-     $rootScope.Cartob[index].gift=1;
-     //alert("This item will be packed in gift")
+    $scope.giftButton = function (index) {
+        $rootScope.Cartob[index].gift = 1;
+        //alert("This item will be packed in gift")
 
-    
+
 
     };
 });
 
-var cont = app.controller("mycont", function ($scope, $location,$rootScope, addressForm, defaultAddress,placeOrder) {
+var cont = app.controller("mycont", function ($scope, $location, $rootScope, addressForm, defaultAddress, placeOrder) {
 
-    var userIdob ={customerId:$rootScope.logedInUserId};
-    addressForm.addressFormListInitialization(userIdob,function (result) {
+    var userIdob = { customerId: $rootScope.logedInUserId };
+    addressForm.addressFormListInitialization(userIdob, function (result) {
 
         $scope.AddressArray = result;
 
@@ -402,12 +428,16 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
 
         };
 
-        addressForm.addressFormListUpdate(add,function(res){
+        addressForm.addressFormListUpdate(add, function (res) {
+            if (res) {
                 alert("inserted");
-                addressForm.addressFormListInitialization(userIdob,function (result) {
+                addressForm.addressFormListInitialization(userIdob, function (result) {
 
                     $scope.AddressArray = result;
                 });
+            } else {
+                alert("error occured")
+            }
         });
         /*addressForm.addressFormListInitialization(userIdob,function (result) {
 
@@ -427,49 +457,48 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
             ZIPcode: $scope.AddressArray[index].ZIPcode,
             Country: $scope.AddressArray[index].Country
         }
-       
+
 
     }
-    $scope.setDefaultAddress = function(obj){
-        var index= $scope.AddressArray.indexOf(obj);
-        
-        var data={customerId: $rootScope.logedInUserId}
-        addressForm.addressDefaultSet(data,function(callback){
-            if(callback){
+    $scope.setDefaultAddress = function (obj) {
+        var index = $scope.AddressArray.indexOf(obj);
+
+        var data = { customerId: $rootScope.logedInUserId }
+        addressForm.addressDefaultSet(data, function (callback) {
+            if (callback) {
                 //alert("aagaya");
-                var def = {Name:$scope.AddressArray[index].Name};
-                addressForm.addressDefault(def,function(callback){
-                    if(callback){
+                var def = { Name: $scope.AddressArray[index].Name };
+                addressForm.addressDefault(def, function (callback) {
+                    if (callback) {
                         alert("Changed default addressDefault");
                         $scope.DefaultAddress(index);
-                        var userIdob ={customerId:$rootScope.logedInUserId};
-    addressForm.addressFormListInitialization(userIdob,function (result) {
+                        var userIdob = { customerId: $rootScope.logedInUserId };
+                        addressForm.addressFormListInitialization(userIdob, function (result) {
 
-        $scope.AddressArray = result;
+                            $scope.AddressArray = result;
 
-    });
+                        });
                     }
-                    else{
+                    else {
                         alert("error in setting default address");
                     }
 
                 });
             }
-            else 
-            {
+            else {
                 alert("didnt set address");
             }
 
         });
-        
+
     }
     $scope.DeleteAddress = function (obj) {
-        var index=$scope.AddressArray.indexOf(obj);
+        var index = $scope.AddressArray.indexOf(obj);
 
         var del = $scope.AddressArray[index].Name;
         addressForm.addressFormListDelete(del);
 
-        addressForm.addressFormListInitialization(userIdob,function (result) {
+        addressForm.addressFormListInitialization(userIdob, function (result) {
 
             $scope.AddressArray = result;
 
@@ -481,7 +510,7 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
     };
     defaultAddress.getDefaultAddress(ob, function (result) {
         //alert(JSON.stringify(result)+" fetched by default address");
-        $rootScope.defaultAddress = result[0].Name+" "+result[0].PhoneNumber+" "+result[0].Address+" "+result[0].City+" "+result[0].State;
+        $rootScope.defaultAddress = result[0].Name + " " + result[0].PhoneNumber + " " + result[0].Address + " " + result[0].City + " " + result[0].State;
         $scope.AddressObjectDefault = result[0];
         for (var i = 0; i < $rootScope.Cartob.length; i++) {
             $rootScope.Cartob[i].address = $rootScope.defaultAddress;
@@ -490,32 +519,32 @@ var cont = app.controller("mycont", function ($scope, $location,$rootScope, addr
     });
     //Written by @nke
     $scope.placeOrder = function () {
-       // alert("reaching");
+        // alert("reaching");
         //alert(JSON.stringify($scope.AddressObjectDefault));
         //alert(JSON.stringify($scope.AddressArray));
         //alert(JSON.stringify($rootScope.Cartob));
         //alert(JSON.stringify($rootScope.Cartob));
-       // alert(JSON.stringify($scope.AddressObjectDefault));
+        // alert(JSON.stringify($scope.AddressObjectDefault));
         for (var i = 0; i < $rootScope.Cartob.length; i++) {
-            $rootScope.Cartob[i].address =  $scope.AddressObjectDefault.Name+" "+$scope.AddressObjectDefault.PhoneNumber+" "+$scope.AddressObjectDefault.Address+" "+$scope.AddressObjectDefault.City+" "+$scope.AddressObjectDefault.State;//JSON.stringify($scope.AddressObjectDefault);
+            $rootScope.Cartob[i].address = $scope.AddressObjectDefault.Name + " " + $scope.AddressObjectDefault.PhoneNumber + " " + $scope.AddressObjectDefault.Address + " " + $scope.AddressObjectDefault.City + " " + $scope.AddressObjectDefault.State;//JSON.stringify($scope.AddressObjectDefault);
             $rootScope.Cartob[i].orderId = $rootScope.Cartob[i]._id + "" + $rootScope.logedInUserId + "" + new Date();
             $rootScope.Cartob[i].status = 0;
             $rootScope.Cartob[i].customerId = $rootScope.logedInUserId;
-            $rootScope.Cartob[i].Date=new Date().toDateString();
+            $rootScope.Cartob[i].Date = new Date().toDateString();
         }
         //alert(JSON.stringify($rootScope.Cartob));
         placeOrder.placeOrders($rootScope.Cartob);
-        $rootScope.Cartob=null;
+        $rootScope.Cartob = null;
         $location.path("/");
     }
-    
+
 
 });
-app.controller("diffAddCntr", function ($scope,$location,$rootScope, fetchSingleUserAddress, placeOrder) {
+app.controller("diffAddCntr", function ($scope, $location, $rootScope, fetchSingleUserAddress, placeOrder) {
     var object = {
         customerId: $rootScope.logedInUserId
     };
-    
+
     fetchSingleUserAddress.fetchUserAddress(object, function (result) {
         var add = [];
         for (var i = 0; i < result.length; i++) {
@@ -524,7 +553,7 @@ app.controller("diffAddCntr", function ($scope,$location,$rootScope, fetchSingle
         }
         $scope.address = add;
     });
-    
+
     //alert(JSON.stringify($rootScope.Cartob));
 
     $scope.removeItemFromCart = function (ob) {
@@ -533,94 +562,92 @@ app.controller("diffAddCntr", function ($scope,$location,$rootScope, fetchSingle
         $rootScope.Cartob.splice(index, 1);
     }
     $scope.placeOrder = function () {
-        
+
         //alert(JSON.stringify($rootScope.Cartob));
         for (var i = 0; i < $rootScope.Cartob.length; i++) {
             $rootScope.Cartob[i].orderId = $rootScope.Cartob[i]._id + "" + $rootScope.logedInUserId + "" + new Date();
             $rootScope.Cartob[i].status = 0;
             $rootScope.Cartob[i].customerId = $rootScope.logedInUserId;
-            $rootScope.Cartob[i].Date=new Date().toDateString();
-        
-            
+            $rootScope.Cartob[i].Date = new Date().toDateString();
+
+
         }
-      alert(JSON.stringify($rootScope.Cartob));
+        alert(JSON.stringify($rootScope.Cartob));
         //console.log($rootScope.Cartob);
         placeOrder.placeOrders($rootScope.Cartob);
-        $rootScope.Cartob=null;
+        $rootScope.Cartob = null;
         $location.path("/");
-        
+
         //console.log($scope.address);
     }
-    
+
 });
 
-app.filter("myFormat",function(){
-    return function(x){
+app.filter("myFormat", function () {
+    return function (x) {
         var temp = JSON.parse(x);
-        var text = temp.Name+" "+temp.PhoneNumber+" "+temp.Address+" "+temp.City+" "+temp.State;
+        var text = temp.Name + " " + temp.PhoneNumber + " " + temp.Address + " " + temp.City + " " + temp.State;
         return text;
     }
 });
-app.controller("orderPageCntr", function ($scope,$rootScope,orderDetailService,addressForm){
-    
+app.controller("orderPageCntr", function ($scope, $rootScope, orderDetailService, addressForm) {
+
     //alert("hello");
-    var ob= {customerId:$rootScope.logedInUserId};
-    orderDetailService.orderDetailsInitialization(ob,function(callback){
-        $rootScope.orderDetail=callback;
-        console.log($rootScope.orderDetail);       
+    var ob = { customerId: $rootScope.logedInUserId };
+    orderDetailService.orderDetailsInitialization(ob, function (callback) {
+        $rootScope.orderDetail = callback;
+        console.log($rootScope.orderDetail);
     });
-    
-    $scope.orderDetailCancelOrder=function(index){
-       
-        var ob= {_id:$rootScope.orderDetail[index]._id};
-        orderDetailService.orderDetailsDeletion(ob,function(callback){
-if(callback)
-{
-alert("Order Item Cancelled");
-var ob= {customerId:$rootScope.logedInUserId};
-orderDetailService.orderDetailsInitialization(ob,function(callback){
-    $rootScope.orderDetail=callback;
-});
-}
-else{
-alert("error");
-}
+
+    $scope.orderDetailCancelOrder = function (index) {
+
+        var ob = { _id: $rootScope.orderDetail[index]._id };
+        orderDetailService.orderDetailsDeletion(ob, function (callback) {
+            if (callback) {
+                alert("Order Item Cancelled");
+                var ob = { customerId: $rootScope.logedInUserId };
+                orderDetailService.orderDetailsInitialization(ob, function (callback) {
+                    $rootScope.orderDetail = callback;
+                });
+            }
+            else {
+                alert("error");
+            }
         });
     };
 
-    $scope.orderDetailAddressChange=function(idx){
-        
-        var userIdob ={customerId:$rootScope.logedInUserId};
-        addressForm.addressFormListInitialization(userIdob,function (result) {
-    
-            $scope.AddressArray = result; 
-     });   
-          $scope.ind=idx;
+    $scope.orderDetailAddressChange = function (idx) {
+
+        var userIdob = { customerId: $rootScope.logedInUserId };
+        addressForm.addressFormListInitialization(userIdob, function (result) {
+
+            $scope.AddressArray = result;
+        });
+        $scope.ind = idx;
     };
-    $scope.orderAddressDelivery=function(index){
+    $scope.orderAddressDelivery = function (index) {
         //alert(index);
-        var add =  $scope.AddressArray[index].Name+" "+$scope.AddressArray[index].PhoneNumber+" "+$scope.AddressArray[index].Address+" "+$scope.AddressArray[index].City+" "+$scope.AddressArray[index].State;
-        var ob= {_id:$rootScope.orderDetail[$scope.ind]._id,Address:add};
-       // alert(JSON.stringify(ob));
-        orderDetailService.orderAddressChange(ob,function(callback){
-if(callback)
-{
-alert("Your Delivery address is changed");
-var ob= {customerId:$rootScope.logedInUserId};
-orderDetailService.orderDetailsInitialization(ob,function(callback){
-    $rootScope.orderDetail=callback;
-});
-}
-else{
-alert("error");
-}
+        var add = $scope.AddressArray[index].Name + " " + $scope.AddressArray[index].PhoneNumber + " " + $scope.AddressArray[index].Address + " " + $scope.AddressArray[index].City + " " + $scope.AddressArray[index].State;
+        var ob = { _id: $rootScope.orderDetail[$scope.ind]._id, Address: add };
+        // alert(JSON.stringify(ob));
+        orderDetailService.orderAddressChange(ob, function (callback) {
+            if (callback) {
+                alert("Your Delivery address is changed");
+                var ob = { customerId: $rootScope.logedInUserId };
+                orderDetailService.orderDetailsInitialization(ob, function (callback) {
+                    $rootScope.orderDetail = callback;
+                });
+            }
+            else {
+                alert("error");
+            }
         });
     };
 });
-app.controller("addressPagecontroller",function ($scope,$rootScope, addressForm){
+app.controller("addressPagecontroller", function ($scope, $rootScope, addressForm) {
 
-    var userIdob ={customerId:$rootScope.logedInUserId};
-    addressForm.addressFormListInitialization(userIdob,function (result) {
+    var userIdob = { customerId: $rootScope.logedInUserId };
+    addressForm.addressFormListInitialization(userIdob, function (result) {
 
         $scope.AddressArray = result;
 
@@ -641,12 +668,12 @@ app.controller("addressPagecontroller",function ($scope,$rootScope, addressForm)
             type: "T"
 
         };
-        addressForm.addressFormListUpdate(add,function(res){
-                alert("inserted");
-                addressForm.addressFormListInitialization(userIdob,function (result) {
+        addressForm.addressFormListUpdate(add, function (res) {
+            alert("inserted");
+            addressForm.addressFormListInitialization(userIdob, function (result) {
 
-                    $scope.AddressArray = result;
-                });
+                $scope.AddressArray = result;
+            });
         });
         /*addressForm.addressFormListInitialization(userIdob,function (result) {
 
@@ -655,43 +682,42 @@ app.controller("addressPagecontroller",function ($scope,$rootScope, addressForm)
         });*/
         $scope.FormData = false;
     }
-    $scope.setDefaultAddress = function(obj){
-        var index= $scope.AddressArray.indexOf(obj);
-        var data={customerId: $rootScope.logedInUserId}
-        addressForm.addressDefaultSet(data,function(callback){
-            if(callback){
+    $scope.setDefaultAddress = function (obj) {
+        var index = $scope.AddressArray.indexOf(obj);
+        var data = { customerId: $rootScope.logedInUserId }
+        addressForm.addressDefaultSet(data, function (callback) {
+            if (callback) {
                 //alert("aagaya");
-                var def = {Name:$scope.AddressArray[index].Name};
-                addressForm.addressDefault(def,function(callback){
-                    if(callback){
-                        alert("Changed default addressDefault");                       
-                        var userIdob ={customerId:$rootScope.logedInUserId};
-    addressForm.addressFormListInitialization(userIdob,function (result) {
+                var def = { Name: $scope.AddressArray[index].Name };
+                addressForm.addressDefault(def, function (callback) {
+                    if (callback) {
+                        alert("Changed default addressDefault");
+                        var userIdob = { customerId: $rootScope.logedInUserId };
+                        addressForm.addressFormListInitialization(userIdob, function (result) {
 
-        $scope.AddressArray = result;
+                            $scope.AddressArray = result;
 
-    });
+                        });
                     }
-                    else{
+                    else {
                         alert("error in setting default address");
                     }
 
                 });
             }
-            else 
-            {
+            else {
                 alert("didnt set address");
             }
 
         });
-        
+
     }
     $scope.DeleteAddress = function (obj) {
-        var index=$scope.AddressArray.indexOf(obj);
+        var index = $scope.AddressArray.indexOf(obj);
         var del = $scope.AddressArray[index].Name;
         addressForm.addressFormListDelete(del);
 
-        addressForm.addressFormListInitialization(userIdob,function (result) {
+        addressForm.addressFormListInitialization(userIdob, function (result) {
 
             $scope.AddressArray = result;
 
@@ -700,16 +726,16 @@ app.controller("addressPagecontroller",function ($scope,$rootScope, addressForm)
     }
 });
 app.directive('ngConfirmClick', [
-    function(){
+    function () {
         return {
             link: function (scope, element, attr) {
                 var msg = attr.ngConfirmClick || "Are you sure?";
                 var clickAction = attr.confirmedClick;
-                element.bind('click',function (event) {
-                    if ( window.confirm(msg) ) {
+                element.bind('click', function (event) {
+                    if (window.confirm(msg)) {
                         scope.$eval(clickAction)
                     }
                 });
             }
         };
-}])
+    }])

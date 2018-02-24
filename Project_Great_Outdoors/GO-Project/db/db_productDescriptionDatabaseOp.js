@@ -31,3 +31,17 @@ exports.registerComment = function(commentToRegister,callback){
         database.close();
     });
 }
+exports.feedbackData = function(ob,callback){
+    MongoClient.connect(url,function(err,database){
+        if(err) throw err;
+        var db = database.db("Project");
+        var res = db.collection("FeedbackCollection");
+        //console.log(commentToRegister +"In Database");
+       
+        res.find({idOfProduct:ob}).toArray(function(err,result){
+            if(err) throw err;
+            callback(result);
+        });
+        database.close();
+    });
+}

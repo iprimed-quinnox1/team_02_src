@@ -43,5 +43,21 @@ router.post("/registerComment",function(request,response){
         console.log("feedback registered");
     });
 });
+router.post("/feedBackData",function(request,response){
+    //console.log("reached");
+    response.set({
+        'Content-Type' :'application/json',
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Credentials":true
+    });
+    var commentToRegister = request.body.userid;
+
+    console.log("In the route"+commentToRegister);
+    mon.feedbackData(commentToRegister,function(result){
+        response.send(result);
+        response.end();
+        console.log("feedback fetched");
+    });
+});
 
 module.exports = router;
