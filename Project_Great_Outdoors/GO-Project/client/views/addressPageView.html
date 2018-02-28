@@ -1,0 +1,189 @@
+<div class="container">
+        <nav class="navbar color navbar-inverse  navbar-fixed-top">
+        <div class="container">
+        <button type="button" class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        >
+        <span class="sr-only"> Toggle navigation</span>
+        <span class="icon-bar"> </span>
+        <span class="icon-bar"> </span>
+        <span class="icon-bar"> </span>
+        </button>
+        
+         <a class="navbar-brand colorWhite" href="#!homePage"> Home</a>
+         
+             <div class="navbar-collapse collapse">
+                 <ul class="nav navbar-nav navbar-right">
+                   <li> <a href="#!goToCart">GoToCart</a> </li>
+                      <li class="dropdown">
+                         <a href="" class="dropdown-toggle"
+                          data-toggle="dropdown">Your Account
+                          <b class="caret"> </b>
+                           <ul class="dropdown-menu">
+                             <li><a href="#!orderdetailpage">Your Order</a> </li>
+                             <li><a href="#!addressPage"> Your Address</a> </li>
+                           </ul>
+                     </li>
+                     <li class=""><a href="#!">Logout</a> </li>
+                 </ul>
+             </div>
+        </div>
+      </nav>
+    </div>
+    <br>
+    <br>
+    <br>
+<div class="container">
+    <header>
+        <h1>My Address</h1>
+    </header>
+    <div class="container addressViewer">
+        <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-3 col-md-3 col-sm-5 col-xs-12 addNew">
+            <div>
+                <h1 class="glyphicon glyphicon-plus" ng-click="FormData=true"></h1>
+                <p>Add New address</p>
+            </div>
+        </div>
+        <div  class=" well col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-lg-3 col-md-3 col-sm-5 col-xs-12 drop-shadow "
+            ng-repeat="Address in AddressArray|orderBy:'type'">
+            <div class="buttonHolder">
+                
+                <button type="button" class=" btn btn-sm btn-danger" ng-if="Address.type=='D'">Default Address</button>
+                <button type="button" class=" btn btn-sm" ng-if="Address.type=='T'" ng-click="setDefaultAddress(Address)">Make This as Default</button>
+                    <button class=" RemoveButton glyphicon glyphicon-remove "  ng-confirm-click="Are you sure to delete this Address ?" confirmed-click="DeleteAddress(Address)"></button>
+            </div>
+            <hr>
+            <ul>
+                <li>
+                    <b>{{Address.Name}}</b>
+                </li>
+                <li>{{Address.PhoneNumber}}</li>
+                <li>{{Address.Address}}</li>
+                <li>{{Address.City}}</li>
+                <li>{{Address.State}}</li>
+                <li>{{Address.ZIPcode}}</li>
+                <li>{{Address.Country}}</li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--div class="row">
+        <div class="col-sm-4 pad" ng-repeat="Address in AddressArray">
+            <div class="well">
+                <button type="button" class="glyphicon glyphicon-remove RemoveButton" ng-click="DeleteAddress($index)"></button>
+                <button type="button" class=" glyphicon glyphicon-star" ng-class="{setDefaultgly:Address.type=='D',setNotDefault:Address.type=='T'}"
+                    ng-click="setDefaultAddress($index)"></button>
+                <ul class="add">
+                    <li><b>{{Address.Name}}</b></li>
+                    <li>{{Address.PhoneNumber}}</li>
+                    <li>{{Address.Address}}</li>
+                    <li>{{Address.City}}</li>
+                    <li>{{Address.State}}</li>
+                    <li>{{Address.ZIPcode}}</li>
+                    <li>{{Address.Country}}</li>
+
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="col-sm-3 padNew">
+
+            <div class="well">
+
+                <b>New Address</b>
+
+                <ul class="add">
+                    <li>
+                        <h1 class="glyphicon glyphicon-plus glyphi" data-dismiss="modal" ng-click="FormData=true"></h1>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div-->
+</div>
+<!-- Address form when you click add new -->
+<div ng-show="FormData">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <form class="form-horizontal" role="form">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend class="AddressDet">
+                        <b>Address Details</b>
+                    </legend>
+                    <!-- Full name-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="textinput">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder=" Full Name" class="form-control" ng-model="CustomerName">
+                        </div>
+                    </div>
+                    <!-- PhoneNumber-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="textinput">Mobile Number</label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder=" Enter Mobile Number" class="form-control" ng-model="CustomerNumber">
+                        </div>
+                    </div>
+                    <!-- Address 1-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="textinput">Address</label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="Address " class="form-control" ng-model="CustomerAddress1">
+                        </div>
+                    </div>
+
+
+                    <!-- City-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="textinput">City</label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="City" class="form-control" ng-model="CustomerCity">
+                        </div>
+                    </div>
+
+                    <!-- State and  Postcode-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="textinput">State</label>
+                        <div class="col-sm-4">
+                            <input type="text" placeholder="State" class="form-control" ng-model="CustomerState">
+                        </div>
+
+                        <label class="col-sm-2 control-label" for="textinput">ZIPcode</label>
+                        <div class="col-sm-4">
+                            <input type="text" placeholder=" ZIP Code" class="form-control" ng-model="CustomerPostcode">
+                        </div>
+                    </div>
+
+
+
+                    <!-- Country-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="textinput">Country</label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="Country" class="form-control" ng-model="CustomerCountry">
+                        </div>
+                    </div>
+                    <!-- Save and Cancel button-->
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-default" ng-click="FormData=false">Cancel</button>
+                                <button type="submit" class="btn btn-primary" ng-click="AddressSave()">Save</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>

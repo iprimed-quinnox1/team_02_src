@@ -102,6 +102,7 @@ ul.li {
 .itemViewer .totalPrice {
     float: right;
     display: inline-block;
+    padding-right: 30px;
 }
 
 .itemViewer select {
@@ -110,8 +111,13 @@ ul.li {
 }
 
 .placeOrderButtonContainer button{
-    float:right;
+    float:right;}
+
+/*  style for show cart*/
+.showCartTable {
+    padding-left: 47px !important
 }
+
 
 
 /*Style for the  home page*/
@@ -441,6 +447,13 @@ ol.progtrckr li.progtrckrTodo:before {
 
 .topnav ul li.icon {display: none;}
 
+.navbar-inverse .navbar-nav>li>a{
+    color:white !important
+}
+.navbar-inverse {
+    background-color:#ce1e42 !important;
+    border-color:#ce1e42 !important
+}
 @media screen and (max-width:680px) {
   .topnav ul li:not(:first-child) {display: none;}
   .topnav ul li.icon {

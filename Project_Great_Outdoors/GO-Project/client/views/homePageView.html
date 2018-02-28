@@ -1,0 +1,127 @@
+<div class="container">
+    <nav class="navbar color navbar-inverse  navbar-fixed-top">
+        <div class="container">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only"> Toggle navigation</span>
+                <span class="icon-bar"> </span>
+                <span class="icon-bar"> </span>
+                <span class="icon-bar"> </span>
+            </button>
+
+            <a class="navbar-brand colorWhite" href="#!homePage"> Home</a>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#!goToCart">GoToCart</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown">Your Account
+                            <b class="caret"> </b>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#!orderdetailpage">Your Order</a>
+                                </li>
+                                <li>
+                                    <a href="#!addressPage"> Your Address</a>
+                                </li>
+                            </ul>
+                    </li>
+
+                    <li class="">
+                        <a href="#!">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<br>
+<br>
+<br>
+<div class="row myOrderButton" ng-show="productList">
+    <!--div class="dropdown ">
+            <button class="btn  dropdown-toggle btn-info" type="button" data-toggle="dropdown">My Account
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#!orderdetailpage"><button class="btn btn-info ">My Order</button></a></li>
+          <li><a href="#!addressPage"><button class="btn btn-info">My Address</button></a></li>
+          
+        </ul>
+           <a href="#!goToCart"><!--ng-disabled="{{Cartob.length==0}}" >
+            <button class="btn btn-success " >GoToCart</button>
+        </a>
+        
+      </div-->
+
+
+</div>
+<div ng-repeat="x in MyItems" ng-click="searchItem(x._id)" ng-show="productList">
+    <div class="itemContainer well">
+        <img ng-src="{{'./server/controllers/uploads/'+x.img}}" height="200px">
+        <p style="color:blue;">{{x.price}}</p>
+        <p>
+            <a style="text-decoration:none;">{{x.name}}</a>
+        </p>
+    </div>
+</div>
+<div ng-hide="productList" class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 item-photo">
+            <img ng-src="{{'./server/controllers/uploads/'+dataToMap.img}}" style="height:100%;">
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <h2>{{dataToMap.name}}</h2>
+            <br>
+            <h4>
+                <b>Price</b>
+            </h4>
+            <p>{{dataToMap.price}}</p>
+            
+            <h3>
+                <b>Technical Specification</b>
+            </h3>
+            <ul ng-repeat="spec in dataToMap.techSpec">
+                <li>
+                    <b>{{spec.att}}</b> - {{spec.value}}</li>
+            </ul>
+            <div>
+                <a href="#!goToCart">
+                    <button class="btn btn-success">GoToCart"</button>
+                </a>
+                <button class="btn btn-success" ng-click="AddToCart();">AddToCart</button>
+            </div>
+            
+        </div>
+    </div>
+    <div ng-init="pan1=true;pan3=false">
+        <ul class="nav nav-tabs myList">
+            <li class="active">
+                <button class="btn btn-lg btn-success" ng-click="pan3=false;pan1=true">Description</button>
+            </li>
+            <li>
+                <button class="btn btn-lg btn-success" ng-click="pan1=false;pan3=true">Reviews</button>
+            </li>
+        </ul>
+        <div ng-show="pan1">
+            <h1>Description</h1>
+        </div>
+        <div ng-show="pan3">
+            <h3>
+                <b>Review</b>
+            </h3>
+            <input type="text" placeholder="Name" id="id_name" ng-model="commentUserName">
+            <br>
+            <br>
+            <textarea rows="4" cols="50" placeholder="Comment" ng-model="comment" id="id_comment"></textarea>
+            <button ng-click="submitComment()">Submit</button><hr>
+            <p ng-if="feedback.length>0"><h3><b>User Reviews</b></h3></p>
+            <div ng-repeat="feed in feedback">
+                <b>{{feed.date}}:- {{feed.userName}}</b>
+                <br>
+                {{feed.comment}}
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>

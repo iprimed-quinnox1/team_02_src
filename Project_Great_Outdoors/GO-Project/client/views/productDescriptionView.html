@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 item-photo">
+            <img ng-src="{{'./server/controllers/uploads/'+dataToMap.img}}" style="height:100%;" />
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="border:0px solid gray">
+
+            <h2 style="color:blue;">{{dataToMap.name}}</h2>
+
+
+            <h4 class="title-price">Price</h4>
+            <h5 style="margin-top:0px;">RS {{dataToMap.price}}</h5>
+            <div class="section">
+
+                <div class="section" style="padding-bottom:20px;">
+                    <h4 class="title-attr">Quantity</h4>
+                    <div>
+                        <div class="btn-minus">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </div>
+                        <input value="1" />
+                        <div class="btn-plus">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <br><hr>
+    <div ng-init="pan1=true;pan2=false;pan3=false">
+        <ul class="nav nav-tabs myList">
+            <li class="active">
+                <button  class="btn btn-lg btn-success" ng-click="pan2=false;pan3=false;pan1=true">Description</button>
+            </li>
+            <li>
+                <button  class="btn btn-lg btn-success" ng-click="pan1=false;pan3=false;pan2=true">Technical Specification</button>
+            </li>
+            <li>
+                <button  class="btn btn-lg btn-success" ng-click="pan2=false;pan1=false;pan3=true">Reviews</button>
+            </li>
+        </ul>
+        <div ng-show="pan1">
+            <h1>Description</h1>
+        </div>
+        <div ng-show="pan2">
+            <ul ng-repeat="spec in dataToMap.techSpec">
+                <li>{{spec.att}} - {{spec.value}}</li>
+            </ul>
+        </div>
+        <div ng-show="pan3">
+            <h3>Review</h3>
+            <input type="text" placeholder="name" id="id_name">
+            <br>
+            <textarea rows="4" cols="50" placeholder="comment" ng-model="comment" id="id_comment"></textarea>
+            <button ng-click="submitComment()">Submit</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<h1 style="padding-left:20px;">GO Logistic</h1>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+
+            <!--Adding greatoutdoor image source on navigation bar-->
+
+            <li>
+                <img ng-src="./client/views/images/greatoutdoor.png" width="150" height="60">
+            </li>
+        </ul>
+
+        <!--Adding search button on navigation bar-->
+
+        <form class="navbar-form navbar-left logistic_radioDecorator" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" ng-model="searchValue">
+            </div>
+            <input type="radio" name="filter" value=" " selected="true" ng-model="selectedRadioButton"><b>ALL<span>{{'('+totalOrder+')'}}</span></b>
+            <input type="radio" name="filter" value="0" ng-model="selectedRadioButton"><b>Order Placed<span>{{'('+totalPlaced+')'}}</span></b>
+            <input type="radio" name="filter" value="1" ng-model="selectedRadioButton"><b>Item Packed<span>{{'('+totalPacked+')'}}</span></b>
+            <input type="radio" name="filter" value="2" ng-model="selectedRadioButton"><b>Shipped<span>{{'('+totalShipped+')'}}</span></b>
+            <input type="radio" name="filter" value="3" ng-model="selectedRadioButton"><b>Delivered<span>{{'('+totalDelivered+')'}}</span></b>
+            <input type="radio" name="filter" value="4" ng-model="selectedRadioButton"><b>Cancelled<span>{{'('+ totalCancelled+')'}}</span></b>
+           
+            <!--button type="submit" class="btn btn-default" ng-click="checkFunction()">
+                <span class="glyphicon glyphicon-search"></span>
+            </button-->
+        </form>
+
+        <!--Adding user login and logout icon-->
+        <!--ul class="nav navbar-nav navbar-right">
+
+        <li>
+          <a href="#">
+            <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+        </li>
+      </ul-->
+    </div>
+</nav>
+<div class="container">
+    <table class="table table-striped logistic_OrderList">
+        <thead>
+            <tr>
+                <th>OrderID#</th>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Shipping To</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>ChangeStatus</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <script>
+               
+                </script>
+            <tr ng-repeat="x in orderList|filter:{status:selectedRadioButton}|filter:{address:searchValue}" ng-init="object=x">
+                <td>{{x._id}}</td>
+                <td class="logistic_ItemViewer">
+                    <img ng-src="{{'./server/controllers/uploads/'+x.imageUrl}}">
+                </td>
+                <td>{{x.name}}</td>
+                <td>{{x.address}}</td>
+                <td>{{x.quantity}} <p ng-if="x.gift"><b>Gift Item</b></p></td>
+                <td ng-class="{deliverdClass:x.status==3,cancelledClass:x.status==4}">{{statusArray[x.status]}}</td>
+                <td>
+                    <select ng-model="selectedStatus" ng-options="y for y in statusArray">
+                    </select>
+                    <button class="btn btn-sm" ng-click="changeStatus(x._id,selectedStatus,object)">update</button>
+                </td>
+                <!--td><select class="addList">
+                    <option ng-repeat="y in status">{{y}}</option>
+                </select>
+                <button class="btn btn-sm" ng-click="changeStatus(x._id)">update</button></td-->
+            </tr>
+        </tbody>
+    </table>
+</div>             

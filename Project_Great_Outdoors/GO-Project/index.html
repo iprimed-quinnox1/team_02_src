@@ -1,29 +1,44 @@
 <html ng-app="myApp">
 
 <head>
-    <title>Cart</title>
-    <script src="./script/cdn.js"></script>
+    <title>GO</title>
     <link rel="stylesheet" href="styles.css">
-    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script-->
-    <script src="url.js"></script>
-    <script src="./angular-1.6.7/angular.min.js"></script>
-    <script src="./angular-1.6.7/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <script src="./config/url.js"></script>
+    <script src="./config/cdn.js"></script>
 </head>
 
-<body>        
+<body>
+    <!--div nav-pan></div-->
     <div ng-view></div>
-    <script src="./script/app.js"></script>
-    <script src="./script/services/services_customerDefaultAddress.service.js"></script>
-    <script src="./script/services/services_fetchAddressOfOneCustomer.js"></script>
-    <script src="./script/services/services_productMasterService.js"></script>
-    <script src="./script/services/services_productDescriptionService.js"></script>
-    <script src="./script/services/services_ProductDataManagement.js"></script>
-    <script src="./script/services/services_addressService.js"></script>
-    <script src="./script/services/services_placeOrder.js"></script>
-    <script src="./script/services/services_logisticService.js"></script>
-    <script src="./script/services/services_orderDetails.js"></script>
+    <script src="./app.js"></script>
+    <script src="./client/controllers/showCartController.js"></script>
+    <script src="./client/controllers/addressPageController.js"></script>
+    <script src="./client/controllers/differentAddressController.js"></script>
+    <script src="./client/controllers/homePageController.js"></script>
+    <script src="./client/controllers/loginController.js"></script>
+    <script src="./client/controllers/logisticController.js"></script>
+    <script src="./client/controllers/addressController.js"></script>
+    <script src="./client/controllers/orderPageController.js"></script>
+    <script src="./client/controllers/productDescriptionController.js"></script>
+    <script src="./client/controllers/productMasterController.js"></script>
+    <script src="./client/directives/deleteConfirm.js"></script>
+    <script src="./client/directives/fileReadDirectives.js"></script>  
+    <script src="./client/customFilters/customFilter.js"></script>
+    <script src="./client/services/addressService.js"></script>
+    <script src="./client/services/customerDefaultAddressService.js"></script>
+    <script src="./client/services/fetchAddressOfOneCustomerService.js"></script>
+    <script src="./client/services/logisticService.js"></script>
+    <script src="./client/services/orderDetailsService.js"></script>
+    <script src="./client/services/placeOrderService.js"></script>
+    <script src="./client/services/ProductDataManagementService.js"></script>
+    <script src="./client/services/productDescriptionService.js"></script>
+    <script src="./client/services/productMasterService.js"></script>
+    
+  
 </body>
 
 </html>
