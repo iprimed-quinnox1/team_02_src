@@ -53,7 +53,7 @@
                             <b>Total</b>
                         </span>
 
-                        <p class="totalPrice">{{items.price*items.quantity}}</p>
+                        <p class="totalPrice">Rs {{items.price*items.quantity}}</p>
                     </div>
                     <div>
                         <span>
@@ -81,7 +81,7 @@
                             <b>Price</b>
                         </span>
                         <p>
-                            {{items.price}}
+                           Rs {{items.price}}
                         </p>
                     </div>
                     <div>
@@ -101,7 +101,7 @@
                         <li ng-class="{progtrckrDone : items.status>=3&&items.status<4,progtrckrTodo :items.status <3 ,progtrckrCancel :items.status==4 }">Delivered</li>
                     </ol>
                     <!--button class="btn btn-success" ng-click="orderDetailAddressChange();">Change Address</button-->
-          <button class="btn btn-danger changeAddressOrder" ng-disabled="{{items.status>=2}}" ng-confirm-click="Are you sure you want to cancel this item" confirmed-click="orderDetailCancelOrder($index)">Cancel Product</button>
+          <button class="btn btn-danger changeAddressOrder" ng-disabled="{{items.status>=2}}" ng-confirm-click="Are you sure you want to cancel this item" confirmed-click="orderDetailCancelOrder($index)">Cancel Order</button>
              
           
           <!-- Trigger the modal with a button -->

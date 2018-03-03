@@ -1,1 +1,1 @@
-var url="http://localhost:3000/";
+var url="http://192.168.10.12:3000/";

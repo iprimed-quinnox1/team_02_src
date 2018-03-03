@@ -59,7 +59,7 @@
 <div ng-repeat="x in MyItems" ng-click="searchItem(x._id)" ng-show="productList">
     <div class="itemContainer well">
         <img ng-src="{{'./server/controllers/uploads/'+x.img}}" height="200px">
-        <p style="color:blue;">{{x.price}}</p>
+        <p style="color:blue;">Rs {{x.price}}</p>
         <p>
             <a style="text-decoration:none;">{{x.name}}</a>
         </p>
@@ -76,7 +76,7 @@
             <h4>
                 <b>Price</b>
             </h4>
-            <p>{{dataToMap.price}}</p>
+            <p>Rs {{dataToMap.price}}</p>
             
             <h3>
                 <b>Technical Specification</b>

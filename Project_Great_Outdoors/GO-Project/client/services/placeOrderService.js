@@ -6,7 +6,7 @@ app.service("placeOrder", function ($http) {
         $http.post(url + "order/placeOrder", data).then(
             function (result) {
                 if (result.data==true) {
-                    alert("Yout order is placed" + " " + "Thank you");
+                    alert("Your order is placed" + " " + "Thank you");
                 } else {
                     alert("error");
                 }
